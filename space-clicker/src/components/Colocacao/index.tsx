@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { styles } from "./styles";
 
-export const Placar = () => {
+export const Colocacao = () => {
     return(
         <View>
             
