@@ -23,7 +23,7 @@ export const Game = () => {
 
     return(
         <View style={styles.container}>
-            <ImageBackground source={spaceBg} resizeMode="cover">
+            <ImageBackground source={spaceBg} resizeMode="cover" style={styles.background}>
             <TouchableOpacity style={[styles.botao, {top: position.y, left: position.x, height: size, width: size}]}
             onPress={handlePress}>
                 <Image

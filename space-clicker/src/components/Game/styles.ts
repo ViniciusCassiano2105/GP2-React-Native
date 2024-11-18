@@ -15,5 +15,8 @@ export const styles = StyleSheet.create({
     botao: {
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    background:{
+        flex:1,
     }
 })
