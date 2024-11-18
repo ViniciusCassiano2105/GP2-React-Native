@@ -1,11 +1,11 @@
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { styles } from "./styles";
 
 export const Placar = () => {
     return(
-        <View>
-            
+        <View style={styles.container}>
+            <Text>Este é o placar</Text>
         </View>
     )
 }
