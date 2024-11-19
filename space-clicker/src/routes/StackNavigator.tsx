@@ -6,9 +6,10 @@ const Stack = createNativeStackNavigator();
 
 export function StackNavigator() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+        screenOptions={{headerShown: false}}>
             {/* <Stack.Screen name="StartScreen" component={StartScreen} /> */}
-            <Stack.Screen options={{headerShown: false}} name="HomeTabs" component={BottomTabs} />
+            <Stack.Screen name="HomeTabs" component={BottomTabs} />
         </Stack.Navigator>
     );
 }
