@@ -10,9 +10,14 @@
   },
   "dependencies": {
     "expo": "~52.0.6",
+    "expo-av": "~15.0.1",
     "expo-status-bar": "~2.0.0",
+    "lottie-react-native": "^7.1.0",
     "react": "18.3.1",
-    "react-native": "0.76.1"
+    "react-native": "^0.76.2",
+    "react-native-fast-image": "^8.6.3",
+    "react-native-image-picker": "^7.1.2",
+    "react-native-webview": "^13.12.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
