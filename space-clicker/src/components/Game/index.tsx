@@ -4,7 +4,12 @@ import { styles } from "./styles";
 import ship from './../../assets/spaceship.png'
 import { useMyContext } from "../../context/General/MyContext";
 import spaceBg from './../../assets/spaceBackground.jpg'
+<<<<<<< HEAD
 import Timer from "../../components/Timer"
+=======
+import { Video } from "expo-av";
+
+>>>>>>> e63e26b9687b394812f3c03671aec5d4219ff8bf
 export const Game = () => {
     const {size, setSize} = useMyContext()
     const { width, height } = Dimensions.get('window')
@@ -22,9 +27,20 @@ export const Game = () => {
     }
 
     return(
+
+        
         <View style={styles.container}>
+<<<<<<< HEAD
             <ImageBackground source={spaceBg} resizeMode="cover" style={styles.background}>
             <Timer/>
+=======
+        <Video
+        style={styles.video}
+        source={require("./../../assets/backgroundplay2.mp4")}
+        resizeMode="cover"
+        isLooping
+        shouldPlay/>
+>>>>>>> e63e26b9687b394812f3c03671aec5d4219ff8bf
             <TouchableOpacity style={[styles.botao, {top: position.y, left: position.x, height: size, width: size}]}
             onPress={handlePress}>
                 <Image
@@ -32,7 +48,7 @@ export const Game = () => {
                 style={[styles.spaceShip, {width: size}]}
                 />
             </TouchableOpacity>
-                </ImageBackground>
+                
         </View>
     )
 }
