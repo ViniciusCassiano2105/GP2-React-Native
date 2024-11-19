@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     buttonStart: {
         backgroundColor: '#56A2F1',
         height: 50,
-        width: 180,
+        width: 200,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     buttonConfiguracao:{
         backgroundColor: '#13b71f',
         height: 50,
-        width: 260,
+        width: 200,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'
