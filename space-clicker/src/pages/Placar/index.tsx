@@ -1,10 +1,11 @@
-import { Audio, Video } from "expo-av";
+import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { styles } from "./styles";
+import { useMyContext } from "../../context/General/MyContext";
 
 export const Placar = () => {
-  const [sound, setSound] = useState<Audio.Sound | undefined>();
+  const { sound, setSound } = useMyContext();
 
   async function playMusic() {
     try {
@@ -36,7 +37,7 @@ export const Placar = () => {
       <Video
         style={styles.video}
         source={require("./../../assets/backgroundscore1.mp4")}
-        resizeMode="cover"
+        resizeMode={"cover" as ResizeMode}
         isLooping
         shouldPlay
       />

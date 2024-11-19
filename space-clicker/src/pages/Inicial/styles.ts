@@ -2,12 +2,12 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     video: {
-        ...StyleSheet.absoluteFillObject, 
-        zIndex: -1, 
-      },
-      container: {
+        ...StyleSheet.absoluteFillObject,
+        zIndex: -1,
+    },
+    container: {
         flex: 1,
-      },
+    },
 
     inicial: {
         flex: 1,
@@ -16,9 +16,9 @@ export const styles = StyleSheet.create({
         gap: 30
     },
     botoes: {
-        gap: 15,
+        gap: 20,
         alignItems: 'center',
-        marginVertical:650
+        marginVertical: 575
     },
 
     buttonStart: {
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    buttonConfiguracao:{
+    buttonConfiguracao: {
         backgroundColor: '#13b71f',
         height: 50,
         width: 200,
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    textButton:{
+    textButton: {
         color: "white",
         fontWeight: 'bold',
         fontSize: 21

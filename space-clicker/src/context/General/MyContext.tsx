@@ -1,16 +1,22 @@
-import React, { createContext, useState, ReactNode, useContext } from "react";
-import { Dimensions } from "react-native";
+import { Audio } from "expo-av";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface MyContextProps {
     size: number;
     setSize: (value: number) => void;
+    sound: Audio.Sound | undefined;
+    setSound: (value: Audio.Sound | undefined) => void;
 }
 
 const MyContext = createContext<MyContextProps>({
     size: 0,
     setSize: () => {
         throw new Error('setSize foi chamado fora do MyProvider')
-    }
+    },
+    sound: undefined,
+    setSound: () => {
+        throw new Error('setSound foi chamado fora do MyProvider')
+    },
 })
 
 interface MyProviderProps {
@@ -19,6 +25,7 @@ interface MyProviderProps {
 
 export const MyProvider = ({ children }: MyProviderProps) => {
     const [size, setSize] = React.useState(100)
+    const [sound, setSound] = useState<Audio.Sound | undefined>();
 
     return (
 
@@ -26,6 +33,8 @@ export const MyProvider = ({ children }: MyProviderProps) => {
             value={{
                 size,
                 setSize,
+                sound,
+                setSound,
             }}
         >
             {children}
