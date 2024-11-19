@@ -35,7 +35,7 @@ export const Placar = () => {
     <View style={styles.container}>
       <Video
         style={styles.video}
-        source={require("./background.mp4")}
+        source={require("./../../assets/backgroundscore1.mp4")}
         resizeMode="cover"
         isLooping
         shouldPlay
