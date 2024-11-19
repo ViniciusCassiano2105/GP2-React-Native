@@ -8,7 +8,14 @@ import logo from './../assets/logo.png'
 import config from './../assets/settings.png'
 import rank from './../assets/ranking.png'
 
-const Tab = createBottomTabNavigator();
+type BottomTabsParamList = {
+  Ranking: undefined;
+  Jogar: undefined;
+  Configurações: undefined;
+};
+
+const Tab = createBottomTabNavigator<BottomTabsParamList>();
+
 
 export function BottomTabs() {
   return (
@@ -20,38 +27,38 @@ export function BottomTabs() {
         tabBarActiveTintColor: 'white'
       }}>
       <Tab.Screen
-      options={{
-        tabBarIcon: () => (
+        options={{
+          tabBarIcon: () => (
             <Image
-                resizeMode='contain'
-                source={rank}
-                style={{ height: 35, marginBottom: 5, tintColor: "#fff" }}
+              resizeMode='contain'
+              source={rank}
+              style={{ height: 35, marginBottom: 5, tintColor: "#fff" }}
             />)
-    }}
-    name="Ranking"
-    component={Placar} />
+        }}
+        name="Ranking"
+        component={Placar} />
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-              <Image
-                  resizeMode='contain'
-                  source={logo}
-                  style={{ width: 80, marginBottom: 40 }}
-              />)
-      }}
-      name="Jogar"
-      component={Home}/>
-      <Tab.Screen
-      options={{
-        tabBarIcon: () => (
             <Image
-                resizeMode='contain'
-                source={config}
-                style={{ height: 30, marginBottom: 5, tintColor: "#fff" }}
+              resizeMode='contain'
+              source={logo}
+              style={{ width: 80, marginBottom: 40 }}
             />)
-    }}
-    name="Configurações"
-    component={Configuracoes} />
+        }}
+        name="Jogar"
+        component={Home} />
+      <Tab.Screen
+        options={{
+          tabBarIcon: () => (
+            <Image
+              resizeMode='contain'
+              source={config}
+              style={{ height: 30, marginBottom: 5, tintColor: "#fff" }}
+            />)
+        }}
+        name="Configurações"
+        component={Configuracoes} />
     </Tab.Navigator>
   );
 }
