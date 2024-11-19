@@ -3,15 +3,22 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     inicial: {
         flex: 1,
-        justifyContent: 'space-around',
-        alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 30
     },
     titulo:{    
 
     },
     textTitulo:{
         fontSize: 40,
-        fontWeight: '900'
+        fontWeight: '900',
+    },
+
+    imagem:{
+        height: 330,
+        width: 330,
+        borderRadius: 200
     },
 
     botoes: {
@@ -21,16 +28,16 @@ export const styles = StyleSheet.create({
 
     buttonStart: {
         backgroundColor: '#56A2F1',
-        height: 40,
-        width: 120,
+        height: 50,
+        width: 180,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'
     },
     buttonConfiguracao:{
         backgroundColor: '#13b71f',
-        height: 40,
-        width: 190,
+        height: 50,
+        width: 260,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'
@@ -38,6 +45,6 @@ export const styles = StyleSheet.create({
     textButton:{
         color: "white",
         fontWeight: 'bold',
-        fontSize: 19
+        fontSize: 24
     }
 })

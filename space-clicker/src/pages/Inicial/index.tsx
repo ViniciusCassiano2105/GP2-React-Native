@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
+import logo from "./../../../src/assets/logo.jpeg"
 
 export const Inicial = () => {
     return(
@@ -10,17 +11,19 @@ export const Inicial = () => {
                     <Text style={styles.textTitulo}>SPACE-CLICKER</Text>
                 </View>
 
-                {/* <Image>
-                    LOGO
-                </Image> */}
-
+                <Image 
+                    source={logo}
+                    style={styles.imagem}
+                />    
+                
                 <View style={styles.botoes}>
-                <TouchableOpacity style={styles.buttonStart}>
-                    <Text style={styles.textButton}>START</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonConfiguracao}>
-                    <Text style={styles.textButton}>CONFIGURAÇÔES</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonStart}>
+                        <Text style={styles.textButton}>START</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.buttonConfiguracao}>
+                        <Text style={styles.textButton}>CONFIGURAÇÔES</Text>
+                    </TouchableOpacity>
                 </View>
             {/* </ImageBackground> */}
         </View>
