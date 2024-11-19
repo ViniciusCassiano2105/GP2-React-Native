@@ -28,7 +28,7 @@ export const Game = () => {
         <View style={styles.container}>
         <Video
         style={styles.video}
-        source={require("./../../assets/backgroundplay1.mp4")}
+        source={require("./../../assets/backgroundplay2.mp4")}
         resizeMode="cover"
         isLooping
         shouldPlay/>
