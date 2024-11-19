@@ -1,15 +1,17 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-    container:{
-       
-        
-    },
-    textTimer:{
-        color:"white",
-        fontWeight:"bold",
-        textAlign:"center",
-        marginTop:30,
-        fontSize:30
-    }
-})
+  container: {
+    flex: 1, 
+    justifyContent: "center", 
+    alignItems: "center", 
+  },
+  textTimer: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 5, 
+    fontSize: 30, 
+    flexShrink: 1, 
+  },
+});
