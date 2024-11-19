@@ -4,6 +4,7 @@ import { styles } from "./styles";
 import ship from './../../assets/spaceship.png'
 import { useMyContext } from "../../context/General/MyContext";
 import spaceBg from './../../assets/spaceBackground.jpg'
+import { Video } from "expo-av";
 
 export const Game = () => {
     const {size, setSize} = useMyContext()
@@ -22,8 +23,15 @@ export const Game = () => {
     }
 
     return(
+
+        
         <View style={styles.container}>
-            <ImageBackground source={spaceBg} resizeMode="cover" style={styles.background}>
+        <Video
+        style={styles.video}
+        source={require("./../../assets/backgroundplay1.mp4")}
+        resizeMode="cover"
+        isLooping
+        shouldPlay/>
             <TouchableOpacity style={[styles.botao, {top: position.y, left: position.x, height: size, width: size}]}
             onPress={handlePress}>
                 <Image
@@ -31,7 +39,7 @@ export const Game = () => {
                 style={[styles.spaceShip, {width: size}]}
                 />
             </TouchableOpacity>
-                </ImageBackground>
+                
         </View>
     )
 }
