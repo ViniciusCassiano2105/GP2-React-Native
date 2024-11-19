@@ -23,5 +23,11 @@ export const styles = StyleSheet.create({
     },
     background:{
         flex:1,
-    }
+    },
+
+    headerText: {
+        fontSize: 16,
+        color: "#fff",
+        fontWeight: "bold",
+    },
 })
