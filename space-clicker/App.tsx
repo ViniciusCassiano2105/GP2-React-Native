@@ -1,11 +1,13 @@
 import { MyProvider } from './src/context/General/MyContext';
-import { Home } from './src/pages/Home';
-import { Placar } from './src/pages/Placar';
+import { NavigationContainer } from '@react-navigation/native';
+import { StackNavigator } from './src/routes/StackNavigator';
 
 export default function App() {
   return (
-    <MyProvider>
-      <Placar />
-    </MyProvider>
+    <NavigationContainer>
+      <MyProvider>
+        <StackNavigator />
+      </MyProvider>
+    </NavigationContainer>
   );
 }
