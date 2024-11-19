@@ -1,29 +1,24 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+    video: {
+        ...StyleSheet.absoluteFillObject, 
+        zIndex: -1, 
+      },
+      container: {
+        flex: 1,
+      },
+
     inicial: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 30
     },
-    titulo:{    
-
-    },
-    textTitulo:{
-        fontSize: 40,
-        fontWeight: '900',
-    },
-
-    imagem:{
-        height: 330,
-        width: 330,
-        borderRadius: 200
-    },
-
     botoes: {
         gap: 15,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical:650
     },
 
     buttonStart: {
@@ -45,6 +40,6 @@ export const styles = StyleSheet.create({
     textButton:{
         color: "white",
         fontWeight: 'bold',
-        fontSize: 24
+        fontSize: 21
     }
 })

@@ -1,4 +1,5 @@
 import React from "react";
+import { Video } from "expo-av";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import logo from "./../../../src/assets/logo.jpeg";
 import { styles } from "./styles";
@@ -30,18 +31,15 @@ const handleNavigateToConfig = () => {
 }
 
 
-    return (
-        <View style={styles.inicial}>
-            {/* <ImageBackground source={}> */}
-            <View style={styles.titulo}>
-                <Text style={styles.textTitulo}>SPACE-CLICKER</Text>
-            </View>
-
-            <Image
-                source={logo}
-                style={styles.imagem}
-            />
-
+return (
+    <View style={styles.container}>
+      <Video
+        style={styles.video}
+        source={require("./../../assets/backgroundinicial2.mp4")}
+        resizeMode="cover"
+        isLooping
+        shouldPlay
+      />
             <View style={styles.botoes}>
                 <TouchableOpacity style={styles.buttonStart} onPress={handleNavigateToHome}>
                     <Text style={styles.textButton}>INICIAR</Text>
