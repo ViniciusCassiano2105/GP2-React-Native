@@ -1,54 +1,88 @@
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ResizeMode, Video } from "expo-av";
-import React from "react";
+import { Audio, ResizeMode, Video } from "expo-av";
+import React, { useCallback } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native"; 
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { styles } from "./styles";
 
 type RootStackParamList = {
-    StartScreen: undefined;
-    HomeTabs: { screen: keyof BottomTabsParamList } // Nome da rota para Configurações
+  StartScreen: undefined;
+  HomeTabs: { screen: keyof BottomTabsParamList }; 
 };
 
 type BottomTabsParamList = {
-    Ranking: undefined;
-    Jogar: undefined;
-    Configurações: undefined;
+  Ranking: undefined;
+  Jogar: undefined;
+  Configurações: undefined;
 };
 
 export const Inicial = () => {
-    const navigation = useNavigation<InicialScreenNavigationProp>();
+  const navigation = useNavigation<InicialScreenNavigationProp>();
 
-    type InicialScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'HomeTabs'>;
+  type InicialScreenNavigationProp = NativeStackNavigationProp<
+    RootStackParamList,
+    "HomeTabs"
+  >;
 
-    const handleNavigateToHome = () => {
-        navigation.navigate('HomeTabs', { screen: 'Jogar' });
+  const handleNavigateToHome = () => {
+    navigation.navigate("HomeTabs", { screen: "Jogar" });
+  };
+
+  const handleNavigateToConfig = () => {
+    navigation.navigate("HomeTabs", { screen: "Configurações" });
+  };
+
+  const playMusic = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require("./CrashBandicoot3WarpedTheme.mp3"),
+        {
+          shouldPlay: true,
+          isLooping: true,
+        }
+      );
+      return sound;
+    } catch (error) {
+      console.error("Erro ao carregar o áudio:", error);
     }
+  };
 
-    const handleNavigateToConfig = () => {
-        navigation.navigate('HomeTabs', { screen: 'Configurações' });
-    }
+  useFocusEffect(
+    useCallback(() => {
+      let sound: Audio.Sound | null | undefined = null;
 
+      const startMusic = async () => {
+        sound = await playMusic();
+      };
 
-    return (
-        <View style={styles.container}>
-            <Video
-                style={styles.video}
-                source={require("./../../assets/backgroundinicial2.mp4")}
-                resizeMode={"cover" as ResizeMode}
-                isLooping
-                shouldPlay
-            />
-            <View style={styles.botoes}>
-                <TouchableOpacity style={styles.buttonStart} onPress={handleNavigateToHome}>
-                    <Text style={styles.textButton}>INICIAR</Text>
-                </TouchableOpacity>
+      startMusic();
 
-                <TouchableOpacity style={styles.buttonConfiguracao} onPress={handleNavigateToConfig}>
-                    <Text style={styles.textButton}>CONFIGURAÇÕES</Text>
-                </TouchableOpacity>
-            </View>
-            {/* </ImageBackground> */}
-        </View>
-    )
-}
+      return () => {
+        if (sound) {
+          sound.unloadAsync();
+        }
+      };
+    }, [])
+  );
+
+  return (
+    <View style={styles.container}>
+      <Video
+        style={styles.video}
+        source={require("./../../assets/backgroundinicial2.mp4")}
+        resizeMode={"cover" as ResizeMode}
+        isLooping
+        shouldPlay
+      />
+      <View style={styles.botoes}>
+        <TouchableOpacity style={styles.buttonStart} onPress={handleNavigateToHome}>
+          <Text style={styles.textButton}>INICIAR</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonConfiguracao} onPress={handleNavigateToConfig}>
+          <Text style={styles.textButton}>CONFIGURAÇÕES</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};

@@ -1,13 +1,11 @@
 import { Audio, ResizeMode, Video } from "expo-av";
-import React, { useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native"; 
 import { styles } from "./styles";
-import { useMyContext } from "../../context/General/MyContext";
 
 export const Placar = () => {
-  const { sound, setSound } = useMyContext();
-
-  async function playMusic() {
+  const playMusic = async () => {
     try {
       const { sound } = await Audio.Sound.createAsync(
         require("./MarioKartDoubleDashMusic.mp3"),
@@ -16,21 +14,29 @@ export const Placar = () => {
           isLooping: true,
         }
       );
-      setSound(sound);
+      return sound;
     } catch (error) {
       console.error("Erro ao carregar o áudio:", error);
     }
-  }
+  };
 
-  useEffect(() => {
-    playMusic();
+  useFocusEffect(
+    useCallback(() => {
+      let sound: Audio.Sound | null | undefined = null;
 
-    return () => {
-      if (sound) {
-        sound.unloadAsync();
-      }
-    };
-  }, []);
+      const startMusic = async () => {
+        sound = await playMusic();
+      };
+
+      startMusic();
+
+      return () => {
+        if (sound) {
+          sound.unloadAsync();
+        }
+      };
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
