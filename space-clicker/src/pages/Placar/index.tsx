@@ -1,7 +1,7 @@
 import { Audio, ResizeMode, Video } from "expo-av";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native"; 
+import { useFocusEffect } from "@react-navigation/native";
 import { styles } from "./styles";
 
 export const Placar = () => {
