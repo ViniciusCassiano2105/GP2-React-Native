@@ -2,37 +2,46 @@ import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useCallback, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
 
 export const Placar = () => {
-  const playMusic = async () => {
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+  const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
     try {
       const { sound } = await Audio.Sound.createAsync(
         require("./MarioKartDoubleDashMusic.mp3"),
         {
           shouldPlay: true,
           isLooping: true,
+          volume,
         }
       );
+      setSound(sound);
       return sound;
     } catch (error) {
       console.error("Erro ao carregar o áudio:", error);
+      return null;
     }
   };
 
   useFocusEffect(
     useCallback(() => {
-      let sound: Audio.Sound | null | undefined = null;
+      let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        sound = await playMusic();
+        const sound = await playMusic(0.5);
+        if (sound) {
+          currentSound = sound;
+        }
       };
 
       startMusic();
 
       return () => {
-        if (sound) {
-          sound.unloadAsync();
+        if (currentSound) {
+          currentSound.unloadAsync();
         }
       };
     }, [])
@@ -47,11 +56,14 @@ export const Placar = () => {
         isLooping
         shouldPlay
       />
+
       <SafeAreaView style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.player}>PLAYER</Text>
           <Text style={styles.score}>SCORE</Text>
         </View>
+
+        {sound && <ControleDeVolume sound={sound} />}
       </SafeAreaView>
     </View>
   );
