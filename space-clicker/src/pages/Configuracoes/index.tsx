@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Audio, ResizeMode, Video } from "expo-av";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const Configuracoes = () => {
   const [difficulty, setDifficulty] = useState("normal"); 
@@ -23,6 +24,41 @@ export const Configuracoes = () => {
   const changeVolume = (delta) => {
     setVolume(Math.min(100, Math.max(0, volume + delta))); 
   };
+
+  const playMusic = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require("./StardustSpeedwayZoneAct2.mp3"),
+        {
+          shouldPlay: true,
+          isLooping: true,
+        }
+      );
+      return sound;
+    } catch (error) {
+      console.error("Erro ao carregar o áudio:", error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      let sound: Audio.Sound | null | undefined = null;
+
+      const startMusic = async () => {
+        sound = await playMusic();
+      };
+
+      startMusic();
+
+      return () => {
+        if (sound) {
+          sound.unloadAsync();
+        }
+      };
+    }, [])
+  );
+
+
 
   return (
    
