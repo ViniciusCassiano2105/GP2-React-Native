@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Audio, ResizeMode, Video } from "expo-av";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 
@@ -24,12 +25,17 @@ export const Configuracoes = () => {
   };
 
   return (
+   
     <View style={styles.container}>
-      {/* Fundo */}
-      <Image
-        source={require("../../assets/spaceship.png")}
-        style={styles.backgroundImage}
+       {/*Fundo Video*/}
+      <Video
+        style={styles.video}
+        source={require("./../../assets/conf.mp4")}
+        resizeMode={"cover" as ResizeMode}
+        isLooping
+        shouldPlay
       />
+    
 
       {/* Cabeçalho */}
       <View style={styles.header}>

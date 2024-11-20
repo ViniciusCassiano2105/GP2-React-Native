@@ -4,9 +4,13 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
-    backgroundColor: "#000",
+    justifyContent: "flex-start",    
   },
+  video: {
+    ...StyleSheet.absoluteFillObject, 
+    zIndex: -1, 
+  },
+ 
   backgroundImage: {
     position: "absolute",
     width: "100%",
