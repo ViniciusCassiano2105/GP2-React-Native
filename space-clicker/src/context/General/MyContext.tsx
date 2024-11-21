@@ -8,6 +8,10 @@ interface MyContextProps {
     setSound: (value: Audio.Sound | undefined) => void;
 }
 
+interface MyProviderProps {
+    children: ReactNode;
+}
+
 const MyContext = createContext<MyContextProps>({
     size: 0,
     setSize: () => {
@@ -18,10 +22,6 @@ const MyContext = createContext<MyContextProps>({
         throw new Error('setSound foi chamado fora do MyProvider')
     },
 })
-
-interface MyProviderProps {
-    children: ReactNode;
-}
 
 export const MyProvider = ({ children }: MyProviderProps) => {
     const [size, setSize] = React.useState(100)

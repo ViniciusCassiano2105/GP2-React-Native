@@ -5,4 +5,8 @@ export const styles = StyleSheet.create({
         paddingBottom: 2,
         backgroundColor: "#000"
     },
+    tabButton: {
+        height: '100%',
+        width: '30%',
+    }
 })

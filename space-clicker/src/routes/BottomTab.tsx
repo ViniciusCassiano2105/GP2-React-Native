@@ -3,7 +3,7 @@ import { Placar } from '../pages/Placar';
 import { Home } from '../pages/Home';
 import { Configuracoes } from '../pages/Configuracoes';
 import { styles } from './styles';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import logo from './../assets/logo.png'
 import config from './../assets/settings.png'
 import rank from './../assets/ranking.png'
@@ -29,33 +29,39 @@ export function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <Image
-              resizeMode='contain'
-              source={rank}
-              style={{ height: 35, marginBottom: 5, tintColor: "#fff" }}
-            />)
+            <View style={styles.tabButton}>
+              <Image
+                resizeMode='contain'
+                source={rank}
+                style={{ height: 35, marginBottom: 5, tintColor: "#fff" }}
+              />
+            </View>)
         }}
         name="Ranking"
         component={Placar} />
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <Image
-              resizeMode='contain'
-              source={logo}
-              style={{ width: 80, marginBottom: 40 }}
-            />)
+            <View>
+              <Image
+                resizeMode='contain'
+                source={logo}
+                style={{ width: 80, marginBottom: 40 }}
+              />
+            </View>)
         }}
         name="Jogar"
         component={Home} />
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <Image
-              resizeMode='contain'
-              source={config}
-              style={{ height: 30, marginBottom: 5, tintColor: "#fff" }}
-            />)
+            <View>
+              <Image
+                resizeMode='contain'
+                source={config}
+                style={{ height: 30, marginBottom: 5, tintColor: "#fff" }}
+              />
+            </View>)
         }}
         name="Configurações"
         component={Configuracoes} />

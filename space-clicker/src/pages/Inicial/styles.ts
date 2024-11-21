@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     botoes: {
         gap: 20,
         alignItems: 'center',
-        marginVertical: 650
+        marginVertical: 575,
     },
 
     buttonStart: {
