@@ -4,7 +4,7 @@ const apiScoreboard = axios.create({
     baseURL: 'http://localhost:3000/'
 });
 
-interface Leaderboard {
+export interface Leaderboard {
     id: string;
     nome: string;
     pontuacao: number;

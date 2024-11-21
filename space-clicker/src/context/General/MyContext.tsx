@@ -12,6 +12,9 @@ interface MyContextProps {
     setClickCount: React.Dispatch<React.SetStateAction<number>>;
     score: number;
     setScore: React.Dispatch<React.SetStateAction<number>>;
+    player: string;
+    setPlayer: React.Dispatch<React.SetStateAction<string>>
+
 }
 
 interface MyProviderProps {
@@ -39,6 +42,10 @@ const MyContext = createContext<MyContextProps>({
     setScore: () => {
         throw new Error('setScore foi chamado fora do MyProvider')
     },
+    player: '',
+    setPlayer: () => {
+        throw new Error('setScore foi chamado fora do MyProvider')
+    },
 })
 
 export const MyProvider = ({ children }: MyProviderProps) => {
@@ -47,6 +54,7 @@ export const MyProvider = ({ children }: MyProviderProps) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [clickCount, setClickCount] = useState(0); // Número de cliques
     const [score, setScore] = useState(0); // Pontuação do jogador
+    const [player, setPlayer] = useState('');
 
     return (
 
@@ -62,6 +70,8 @@ export const MyProvider = ({ children }: MyProviderProps) => {
                 setClickCount,
                 score,
                 setScore,
+                player,
+                setPlayer
             }}
         >
             {children}

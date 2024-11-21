@@ -3,16 +3,18 @@ import { Audio, ResizeMode, Video } from "expo-av";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useFocusEffect } from "@react-navigation/native";
+import { useMyContext } from "../../context/General/MyContext";
 
 export const Configuracoes = () => {
-  const [difficulty, setDifficulty] = useState("normal"); 
+  const { player, setPlayer } = useMyContext();
+  
+  const [difficulty, setDifficulty] = useState("normal");
   const [volume, setVolume] = useState(50);
-  const [nick, setNick] = useState("Player1");
   const [score, setScore] = useState(0);
   const [speed, setSpeed] = useState(1000);
 
   useEffect(() => {
-       if (difficulty === "Fácil") setSpeed(1500);
+    if (difficulty === "Fácil") setSpeed(1500);
     else if (difficulty === "Difícil") setSpeed(500);
     else setSpeed(1000);
   }, [difficulty]);
@@ -21,8 +23,8 @@ export const Configuracoes = () => {
     setScore(score + 1);
   };
 
-  const changeVolume = (delta) => {
-    setVolume(Math.min(100, Math.max(0, volume + delta))); 
+  const changeVolume = (delta: number) => {
+    setVolume(Math.min(100, Math.max(0, volume + delta)));
   };
 
   const playMusic = async () => {
@@ -61,9 +63,9 @@ export const Configuracoes = () => {
 
 
   return (
-   
+
     <View style={styles.container}>
-       {/*Fundo Video*/}
+      {/*Fundo Video*/}
       <Video
         style={styles.video}
         source={require("./../../assets/conf.mp4")}
@@ -71,14 +73,14 @@ export const Configuracoes = () => {
         isLooping
         shouldPlay
       />
-    
+
 
       {/* Cabeçalho */}
       <View style={styles.header}>
         <Text style={styles.title}>SpaceClick</Text>
         <Text style={styles.subTitle}>Dificuldade: {difficulty}</Text>
         <Text style={styles.subTitle}>Volume: {volume}</Text>
-        <Text style={styles.subTitle}>Nick: {nick}</Text>
+        <Text style={styles.subTitle}>Nick: {player}</Text>
         <Text style={styles.subTitle}>Pontuação: {score}</Text>
       </View>
 
@@ -134,8 +136,8 @@ export const Configuracoes = () => {
         <TextInput
           style={styles.input}
           placeholder="Alterar Nick"
-          value={nick}
-          onChangeText={setNick}
+          value={player}
+          onChangeText={setPlayer}
         />
       </View>
     </View>

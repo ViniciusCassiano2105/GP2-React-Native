@@ -4,13 +4,13 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",    
+    justifyContent: "flex-start",
   },
   video: {
-    ...StyleSheet.absoluteFillObject, 
-    zIndex: -1, 
+    ...StyleSheet.absoluteFillObject,
+    zIndex: -1,
   },
- 
+
   backgroundImage: {
     position: "absolute",
     width: "100%",
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 15,
   },
-  settingsButton: {
+  settingButton: {
     backgroundColor: "#444",
     padding: 10,
     borderRadius: 5,
