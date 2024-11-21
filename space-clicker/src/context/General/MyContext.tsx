@@ -8,6 +8,10 @@ interface MyContextProps {
     setSound: (value: Audio.Sound | undefined) => void;
     isPlaying: boolean;
     setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
+    clickCount: number;
+    setClickCount: React.Dispatch<React.SetStateAction<number>>;
+    score: number;
+    setScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface MyProviderProps {
@@ -25,14 +29,24 @@ const MyContext = createContext<MyContextProps>({
     },
     isPlaying: false,
     setIsPlaying: () => {
-        throw new Error('setSound foi chamado fora do MyProvider')
-    }
+        throw new Error('setIsPlaying foi chamado fora do MyProvider')
+    },
+    clickCount: 0,
+    setClickCount: () => {
+        throw new Error('setClickCount foi chamado fora do MyProvider')
+    },
+    score: 0,
+    setScore: () => {
+        throw new Error('setScore foi chamado fora do MyProvider')
+    },
 })
 
 export const MyProvider = ({ children }: MyProviderProps) => {
     const [size, setSize] = React.useState(100)
     const [sound, setSound] = useState<Audio.Sound | undefined>();
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [clickCount, setClickCount] = useState(0); // Número de cliques
+    const [score, setScore] = useState(0); // Pontuação do jogador
 
     return (
 
@@ -43,7 +57,11 @@ export const MyProvider = ({ children }: MyProviderProps) => {
                 sound,
                 setSound,
                 isPlaying,
-                setIsPlaying
+                setIsPlaying,
+                clickCount,
+                setClickCount,
+                score,
+                setScore,
             }}
         >
             {children}

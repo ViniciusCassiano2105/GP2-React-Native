@@ -30,12 +30,7 @@ export const styles = StyleSheet.create({
     },
 
     botaoStart: {
-        backgroundColor: "red",
-        height: 180,
-        width: 180,
-        borderRadius: 90,
-        bottom: 100, 
-        justifyContent: 'center', 
+        justifyContent: 'center',
         alignItems:'center',
     }
 })

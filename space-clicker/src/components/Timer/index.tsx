@@ -23,7 +23,8 @@ export default () => {
       }, 100);
     } else if (time <= 0) {
       setIsRunning(false);
-      setIsPlaying(false)
+      setTime(30.00)
+      setIsPlaying(false);
     }
 
 

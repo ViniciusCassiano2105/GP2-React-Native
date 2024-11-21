@@ -1,10 +1,10 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useCallback, useState } from "react";
-import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, TouchableOpacity, View } from "react-native";
 import { useMyContext } from "../../context/General/MyContext";
+import startBtn from './../../assets/botao-start.png';
 import ship from "./../../assets/spaceship.png";
-import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
 
 export const Game = () => {
@@ -17,8 +17,7 @@ export const Game = () => {
   });
 
   const [position, setPosition] = useState({ x: iPosition.x, y: iPosition.y });
-  const [clickCount, setClickCount] = useState(0); // Número de cliques
-  const [score, setScore] = useState(0); // Pontuação do jogador
+  const {clickCount, setClickCount, score, setScore} = useMyContext();
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
   const gerarNovaPosicao = () => {
@@ -27,7 +26,7 @@ export const Game = () => {
     setPosition({ x, y });
   };
 
-  const handlePress = () => {
+  const handleShipPress = () => {
     setClickCount(clickCount + 1); // Incrementa o número de cliques
     setScore(score + 10); // Incrementa a pontuação
     gerarNovaPosicao();
@@ -73,12 +72,7 @@ export const Game = () => {
   );
 
   const handleStartTouch = () => {
-    //começa o contador
-
-    //esconde a barra de navegação
     setIsPlaying(true);
-    
-    //desbloqueia a nave
   }
 
   return (
@@ -96,14 +90,15 @@ export const Game = () => {
           styles.botao,
           { top: position.y, left: position.x, height: size, width: size },
         ]}
-        onPress={handlePress}
+        onPress={handleShipPress}
         disabled={!isPlaying}
       >
         <Image source={ship} style={[styles.spaceShip, { width: size }]} />
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.botaoStart, isPlaying ? {display: 'none'} : {display: 'flex'}]} onPress={handleStartTouch}>
-        <Text style={{textAlign: 'center'}}>START</Text>
+        <Image source={startBtn}
+        style={{height: 180, resizeMode:'contain'}}/>
         </TouchableOpacity>
 
     </View>
