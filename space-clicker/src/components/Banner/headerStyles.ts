@@ -1,24 +1,22 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const { width } = Dimensions.get("window");
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '', 
-    height: width * 0.3, 
-    paddingVertical: 5, 
+    backgroundColor: '#000',
+    height: 90,
+    paddingVertical: 5,
     paddingHorizontal: 25,
-    
+
   },
   leftElement: {
     flex: 1,
     alignItems: 'flex-start',
   },
   title: {
-    flex: 2,
+    flex: 1,
     alignItems: 'center',
     justifyContent: "center",
   },
@@ -26,7 +24,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     flexShrink: 1,
-    
+
   },
   rightElement: {
     flex: 1,

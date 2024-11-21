@@ -6,6 +6,8 @@ interface MyContextProps {
     setSize: (value: number) => void;
     sound: Audio.Sound | undefined;
     setSound: (value: Audio.Sound | undefined) => void;
+    isPlaying: boolean;
+    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface MyProviderProps {
@@ -21,11 +23,16 @@ const MyContext = createContext<MyContextProps>({
     setSound: () => {
         throw new Error('setSound foi chamado fora do MyProvider')
     },
+    isPlaying: false,
+    setIsPlaying: () => {
+        throw new Error('setSound foi chamado fora do MyProvider')
+    }
 })
 
 export const MyProvider = ({ children }: MyProviderProps) => {
     const [size, setSize] = React.useState(100)
     const [sound, setSound] = useState<Audio.Sound | undefined>();
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
     return (
 
@@ -35,6 +42,8 @@ export const MyProvider = ({ children }: MyProviderProps) => {
                 setSize,
                 sound,
                 setSound,
+                isPlaying,
+                setIsPlaying
             }}
         >
             {children}
