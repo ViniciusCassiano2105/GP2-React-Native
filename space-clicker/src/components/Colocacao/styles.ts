@@ -1,7 +1,83 @@
 import { StyleSheet } from "react-native";
 
-export const styles = () => ({
-    container: {
-        
-    }
-})
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    width: "100%",
+    height: 80,
+    backgroundColor: "#000",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  player: {
+    paddingTop: 20,
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#FF0000",
+  },
+  scoreHeader: {
+    paddingTop: 20,
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#FFFF00",
+  },
+  rankingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 5,
+    paddingHorizontal: 20,
+    backgroundColor: "#FFFFFF20",
+    borderWidth: 1,
+    borderColor: "#00000030",
+    borderRadius: 10,
+    opacity: 0.9,
+  },
+
+  posicao: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#FF0000",
+    marginRight: 8,
+    textShadowColor: "#000000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  },
+
+  iniciais: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#FF0000",
+    width: 60,
+    textShadowColor: "#000000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  },
+  pontos: {
+    paddingBottom: 10,
+    flex: 1,
+    textAlign: "center",
+    fontSize: 30,
+    color: "#FFFFFF",
+    textShadowColor: "#000000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  },
+  scoreTexto: {
+    position: "relative",
+    left: 10,
+    textAlign: "center",
+    paddingLeft: 5,
+    paddingTop: 5,
+    paddingBottom: 5,
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#FFFF00",
+    textShadowColor: "#000000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  },
+});
