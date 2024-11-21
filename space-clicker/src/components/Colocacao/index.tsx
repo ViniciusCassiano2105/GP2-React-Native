@@ -29,7 +29,7 @@ const ColocacaoItem: React.FC<ColocacaoItemProps> = ({
   <View style={styles.rankingContainer}>
     <Text style={styles.posicao}>{`${position}.`}</Text>
     <Text style={styles.iniciais}>{initials}</Text>
-    <Text style={styles.pontos}>…….........…</Text>
+    <Text style={styles.pontos}>……......…</Text>
     <Text style={styles.scoreTexto}>{score.toLocaleString()}</Text>
   </View>
 );
