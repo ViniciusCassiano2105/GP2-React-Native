@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigator } from './src/routes/StackNavigator';
 import Configuracoes from './src/pages/Configuracoes';
 
+
 export default function App() {
   return (
     <NavigationContainer>

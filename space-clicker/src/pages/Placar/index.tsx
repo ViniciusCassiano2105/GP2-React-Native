@@ -1,7 +1,8 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useCallback, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { SafeAreaView, View } from "react-native";
+import { Colocacao } from "./../../components/Colocacao";
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
 
@@ -58,11 +59,7 @@ export const Placar = () => {
       />
 
       <SafeAreaView style={styles.content}>
-        <View style={styles.header}>
-          <Text style={styles.player}>PLAYER</Text>
-          <Text style={styles.score}>SCORE</Text>
-        </View>
-
+        <Colocacao />
         {sound && <ControleDeVolume sound={sound} />}
       </SafeAreaView>
     </View>
