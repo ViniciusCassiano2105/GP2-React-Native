@@ -5,6 +5,7 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
+import { useMyContext } from "../../context/General/MyContext";
 
 type RootStackParamList = {
   StartScreen: undefined;
@@ -20,6 +21,7 @@ type BottomTabsParamList = {
 export const Inicial = () => {
   const navigation = useNavigation<InicialScreenNavigationProp>();
   const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const { volume } = useMyContext();
 
   type InicialScreenNavigationProp = NativeStackNavigationProp<
     RootStackParamList,
@@ -57,7 +59,7 @@ export const Inicial = () => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(0.5);
+        const sound = await playMusic(volume);
         if (sound) {
           currentSound = sound;
         }

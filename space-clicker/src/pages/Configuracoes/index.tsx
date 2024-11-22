@@ -13,7 +13,7 @@ export const Configuracoes = () => {
   const navigation = useNavigation<ConfigNavigationProp>(); // Criando o objeto de navegação
 
   const [difficulty, setDifficulty] = useState("normal");
-  const [volume, setVolume] = useState(50);
+  const { volume, setVolume } = useMyContext();
   const [score, setScore] = useState(0);
   const [speed, setSpeed] = useState(1000);
   const [nickInput, setNickInput] = useState(player || "");
@@ -89,7 +89,7 @@ export const Configuracoes = () => {
         isLooping
         shouldPlay
       />
-      
+
       <View style={styles.settings}>
         <Text style={styles.settingsTitle}>Configurações</Text>
 

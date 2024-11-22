@@ -4,6 +4,7 @@ import { Audio } from "expo-av";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
+import { useMyContext } from "../../context/General/MyContext";
 
 interface ControleDeVolumeProps {
   sound: Audio.Sound;
@@ -12,7 +13,7 @@ interface ControleDeVolumeProps {
 export const ControleDeVolume: React.FC<ControleDeVolumeProps> = ({
   sound,
 }) => {
-  const [volume, setVolume] = useState(0.5);
+  const { volume, setVolume } = useMyContext();
   const [showVolumeControl, setShowVolumeControl] = useState(false);
 
   // Função para alterar o volume
