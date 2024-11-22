@@ -60,7 +60,6 @@ export const Placar = () => {
 
       <SafeAreaView style={styles.content}>
         <Colocacao />
-        {sound && <ControleDeVolume sound={sound} />}
       </SafeAreaView>
     </View>
   );

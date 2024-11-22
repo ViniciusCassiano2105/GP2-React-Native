@@ -91,8 +91,6 @@ export const Inicial = () => {
           <Text style={styles.textButton}>CONFIGURAÇÕES</Text>
         </TouchableOpacity>
       </View>
-
-      {sound && <ControleDeVolume sound={sound} />}
     </View>
   );
 };

@@ -176,8 +176,6 @@ export const Creditos = () => {
           <Text style={styles.textButton}>MENU</Text>
         </TouchableOpacity>
       )}
-
-      {sound && <ControleDeVolume sound={sound} />}
     </SafeAreaView>
   );
 };
