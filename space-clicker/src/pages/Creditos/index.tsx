@@ -155,6 +155,8 @@ export const Creditos = () => {
         >
           <Text style={styles.finalMessage}>O universo agradece!</Text>
           <Text style={styles.finalMessage}>Você fez história no Space Clicker!</Text>
+          <Text style={styles.finalMessage}>Obrigado por sua jornada!</Text>
+          <Text style={styles.finalMessage}>Nos vemos no próximo jogo!</Text>
           <Image source={logo} style={styles.logo} />
         </Animated.View>
       )}
