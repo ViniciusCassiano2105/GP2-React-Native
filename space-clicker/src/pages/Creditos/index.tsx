@@ -1,7 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Animated, SafeAreaView, Text, View, Image } from "react-native";
 import { styles } from "./styles";
 import logo from "./../../assets/logo.png";
+import { useFocusEffect } from "@react-navigation/native";
+import { Audio } from "expo-av";
+import { ControleDeVolume } from "./../../components/ControleDeVolume";
 
 const creditosData = [
   { role: "Engenheiro de Gameplay", name: "Arthur Carreiro" },
@@ -13,7 +16,7 @@ const creditosData = [
   { role: "Escultor 3D", name: "Weliton Schitini" },
 ];
 
-export const Creditos: React.FC = () => {
+export const Creditos = () => {
   const scrollY = useRef(new Animated.Value(500)).current;
   const finalMessageY = useRef(new Animated.Value(300)).current;
   const finalMessageOpacity = useRef(new Animated.Value(0)).current;
@@ -40,6 +43,48 @@ export const Creditos: React.FC = () => {
       ]).start();
     });
   }, [scrollY]);
+
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+  const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require("./starwars.mp3"),
+        {
+          shouldPlay: true,
+          isLooping: true,
+          volume,
+        }
+      );
+      setSound(sound);
+      return sound;
+    } catch (error) {
+      console.error("Erro ao carregar o áudio:", error);
+      return null;
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      let currentSound: Audio.Sound | null = null;
+
+      const startMusic = async () => {
+        const sound = await playMusic(0.5);
+        if (sound) {
+          currentSound = sound;
+        }
+      };
+
+      startMusic();
+
+      return () => {
+        if (currentSound) {
+          currentSound.unloadAsync();
+        }
+      };
+    }, [])
+  );
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,7 +129,9 @@ export const Creditos: React.FC = () => {
           <Text style={styles.finalMessage}>Space Clicker!!!</Text>
           <Image source={logo} style={styles.logo} />
         </Animated.View>
+        
       )}
+       {sound && <ControleDeVolume sound={sound} />}
     </SafeAreaView>
   );
 };

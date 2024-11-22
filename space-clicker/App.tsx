@@ -1,16 +1,13 @@
 import { MyProvider } from './src/context/General/MyContext';
 import { NavigationContainer } from '@react-navigation/native';
-import { StackNavigator } from './src/routes/StackNavigator';
-import Configuracoes from './src/pages/Configuracoes';
+import { Creditos } from './src/pages/Creditos';
 
 
 export default function App() {
   return (
     <NavigationContainer>
-    
       <MyProvider>
-     
-        <StackNavigator />
+        <Creditos />
       </MyProvider>
     </NavigationContainer>
   );
