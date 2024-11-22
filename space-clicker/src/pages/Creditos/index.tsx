@@ -4,24 +4,20 @@ import { styles } from "./styles";
 import logo from "./../../assets/logo.png";
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
-import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/StackNavigator";
-
-
+import { useMyContext } from "../../context/General/MyContext";
 
 const creditosData = [
   { role: "Engenheiro de Gameplay", name: "Arthur Carreiro" },
   { role: "Artista de Interface", name: "Gabriel Toledo" },
   { role: "Engenheiro de Som", name: "Lucas Schumacker" },
-  { role: "Especialista em Testes", name: "Luiz Vinicius" },
   { role: "Animador de Cenários", name: "Matheus Lopes" },
   { role: "Estratégia de Mercado", name: "Savio Castro" },
+  { role: "Especialista em Testes", name: "Vinicius Cassiano" },
   { role: "Escultor 3D", name: "Weliton Schitini" },
 ];
-
-
 
 export const Creditos = () => {
   const scrollY = useRef(new Animated.Value(500)).current;
@@ -30,7 +26,7 @@ export const Creditos = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
-
+  const { volume } = useMyContext(); 
 
   type CreditoNavigationProp = NativeStackNavigationProp<
     RootStackParamList,
@@ -39,7 +35,7 @@ export const Creditos = () => {
 
   const navigation = useNavigation<CreditoNavigationProp>();
 
-  const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
+  const playMusic = async (): Promise<Audio.Sound | null> => {
     try {
       const { sound } = await Audio.Sound.createAsync(
         require("./starwars.mp3"),
@@ -65,6 +61,40 @@ export const Creditos = () => {
     }
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      let currentSound: Audio.Sound | null = null;
+
+      const startMusic = async () => {
+        const sound = await playMusic();
+        if (sound) {
+          currentSound = sound;
+        }
+      };
+
+      startMusic();
+
+      return () => {
+        if (currentSound) {
+          currentSound.unloadAsync();
+        }
+      };
+    }, []) 
+  );
+
+  useEffect(() => {
+    const adjustVolume = async () => {
+      if (sound) {
+        await sound.setVolumeAsync(volume);
+      }
+    };
+    adjustVolume();
+  }, [volume]); // Apenas quando o volume muda
+
+  const handleNavigateToMenu = () => {
+    navigation.navigate("StartScreen");
+  };
+
   useEffect(() => {
     Animated.timing(scrollY, {
       toValue: -600,
@@ -87,32 +117,7 @@ export const Creditos = () => {
         setShowMenuButton(true);
       });
     });
-  }, [scrollY]);
-
-  useFocusEffect(
-    useCallback(() => {
-      let currentSound: Audio.Sound | null = null;
-
-      const startMusic = async () => {
-        const sound = await playMusic(0.5);
-        if (sound) {
-          currentSound = sound;
-        }
-      };
-
-      startMusic();
-
-      return () => {
-        if (currentSound) {
-          currentSound.unloadAsync();
-        }
-      };
-    }, [])
-  );
-
-  const handleNavigateToMenu = () => {
-    navigation.navigate("StartScreen");
-  };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
