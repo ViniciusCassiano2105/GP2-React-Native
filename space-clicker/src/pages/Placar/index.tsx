@@ -1,15 +1,16 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaView, View } from "react-native";
 import { Colocacao } from "./../../components/Colocacao";
-import { ControleDeVolume } from "./../../components/ControleDeVolume";
+import { useMyContext } from "../../context/General/MyContext";
 import { styles } from "./styles";
 
 export const Placar = () => {
+  const { volume } = useMyContext();
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
-  const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
+  const playMusic = async (): Promise<Audio.Sound | null> => {
     try {
       const { sound } = await Audio.Sound.createAsync(
         require("./MarioKartDoubleDashMusic.mp3"),
@@ -32,7 +33,7 @@ export const Placar = () => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(0.5);
+        const sound = await playMusic();
         if (sound) {
           currentSound = sound;
         }
@@ -47,6 +48,13 @@ export const Placar = () => {
       };
     }, [])
   );
+
+ 
+  useEffect(() => {
+    if (sound) {
+      sound.setVolumeAsync(volume);
+    }
+  }, [volume, sound]); 
 
   return (
     <View style={styles.container}>
