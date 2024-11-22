@@ -1,59 +1,47 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Audio, ResizeMode, Video } from "expo-av";
-import { Image, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Alert,
+} from "react-native";
 import { styles } from "./styles";
 import { useFocusEffect } from "@react-navigation/native";
 import { useMyContext } from "../../context/General/MyContext";
-import { useNavigation } from "@react-navigation/native"; // Importando o hook de navegação
+import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../routes/StackNavigator";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const Configuracoes = () => {
-  const { player, setPlayer } = useMyContext();
-  const navigation = useNavigation<ConfigNavigationProp>(); // Criando o objeto de navegação
-
+  const { player, setPlayer, volume, setVolume } = useMyContext();
+  const navigation = useNavigation<ConfigNavigationProp>();
   const [difficulty, setDifficulty] = useState("normal");
-  const { volume, setVolume } = useMyContext();
-  const [score, setScore] = useState(0);
-  const [speed, setSpeed] = useState(1000);
   const [nickInput, setNickInput] = useState(player || "");
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
 
   type ConfigNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  "Creditos"
->;
+    RootStackParamList,
+    "Creditos"
+  >;
 
   useEffect(() => {
-    if (difficulty === "Fácil") setSpeed(1500);
-    else if (difficulty === "Difícil") setSpeed(500);
-    else setSpeed(1000);
+    if (difficulty === "Fácil") setDifficulty("Fácil");
+    else if (difficulty === "Difícil") setDifficulty("Difícil");
+    else setDifficulty("Normal");
   }, [difficulty]);
 
-  const handleClick = () => {
-    setScore(score + 1);
-  };
-
-  const changeVolume = (delta: number) => {
-    setVolume(Math.min(1, Math.max(0, volume + delta)));
-  };
-
-  const playMusic = async () => {
-    try {
-      const { sound } = await Audio.Sound.createAsync(
-        require("./StardustSpeedwayZoneAct2.mp3"),
-        {
-          shouldPlay: true,
-          isLooping: true,
-        }
-      );
-      return sound;
-    } catch (error) {
-      console.error("Erro ao carregar o áudio:", error);
+  const changeVolume = async (delta: number) => {
+    const newVolume = Math.min(1, Math.max(0, volume + delta));
+    setVolume(newVolume);
+    if (sound) {
+      await sound.setVolumeAsync(newVolume);
     }
   };
 
   const handleSaveNick = () => {
-    setPlayer(nickInput); // Atualiza o contexto com o nick digitado
+    setPlayer(nickInput);
     Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput}`);
   };
 
@@ -63,25 +51,41 @@ export const Configuracoes = () => {
 
   useFocusEffect(
     useCallback(() => {
-      let sound: Audio.Sound | null | undefined = null;
-
-      const startMusic = async () => {
-        sound = await playMusic();
+      const playMusic = async () => {
+        if (!sound) {
+          try {
+            const { sound: newSound } = await Audio.Sound.createAsync(
+              require("./StardustSpeedwayZoneAct2.mp3"),
+              {
+                shouldPlay: true,
+                isLooping: true,
+                volume,
+              }
+            );
+            setSound(newSound);
+          } catch (error) {
+            console.error("Erro ao carregar o áudio:", error);
+          }
+        } else {
+          const status = await sound.getStatusAsync();
+          if (status.isLoaded && !status.isPlaying) {
+            await sound.playAsync();
+          }
+        }
       };
 
-      startMusic();
+      playMusic();
 
       return () => {
         if (sound) {
-          sound.unloadAsync();
+          sound.pauseAsync();
         }
       };
-    }, [])
+    }, [sound, volume])
   );
 
   return (
     <View style={styles.container}>
-      {/* Fundo Video */}
       <Video
         style={styles.video}
         source={require("./../../assets/conf.mp4")}
@@ -93,7 +97,6 @@ export const Configuracoes = () => {
       <View style={styles.settings}>
         <Text style={styles.settingsTitle}>Configurações</Text>
 
-        {/* Alterar dificuldade */}
         <TouchableOpacity
           onPress={() => setDifficulty("Fácil")}
           style={styles.settingButton}
@@ -113,7 +116,6 @@ export const Configuracoes = () => {
           <Text style={styles.settingText}>Difícil</Text>
         </TouchableOpacity>
 
-        {/* Alterar Volume */}
         <View style={styles.volumeControl}>
           <TouchableOpacity
             onPress={() => changeVolume(-0.1)}
@@ -128,8 +130,8 @@ export const Configuracoes = () => {
             <Text style={styles.settingText}>+ Volume</Text>
           </TouchableOpacity>
         </View>
+        <Text style={styles.settingText}>Volume: {`${Math.round(volume * 100)}%`}</Text>
 
-        {/* Alterar Nick */}
         <TextInput
           style={styles.input}
           placeholder="Digite seu nick"
