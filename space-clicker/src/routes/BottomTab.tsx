@@ -33,7 +33,7 @@ export function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <View style={{height: 40, width: 100, alignItems: 'center'}}>
+            <View style={styles.tabLink}>
               <Image
                 resizeMode='contain'
                 source={rank}
@@ -46,7 +46,7 @@ export function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <View style= {{alignItems: 'center', height: 40, justifyContent: 'center'}}>
+            <View style= {styles.tabLink}>
               <Image
                 resizeMode='contain'
                 source={logo}
@@ -59,7 +59,7 @@ export function BottomTabs() {
       <Tab.Screen
         options={{
           tabBarIcon: () => (
-            <View style= {{height: 40, width: 100, alignItems: 'center'}}>
+            <View style= {styles.tabLink}>
               <Image
                 resizeMode='contain'
                 source={config}

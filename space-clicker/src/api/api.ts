@@ -10,23 +10,28 @@ export interface Leaderboard {
     pontuacao: number;
 }
 
+const url = 'leaderboard/';
+
 const generateId = (): string => {
     return `id-${Date.now()}`
 };
 
 export const buscaPlacar = async () => {
-    const url = 'leaderboard/';
     return apiScoreboard.get(url);
 };
 
-export const registraPontos = (nome: string, pontuacao: number) => {
-    const url = 'leaderboard/';
-
+export const registraPontos = async (nome: string, pontuacao: number) => {
     const leaderboard: Leaderboard = {
         id: generateId(),
-            nome,
-            pontuacao
-};
+        nome: nome,
+        pontuacao: pontuacao
+    };
+    try {
+        await apiScoreboard.post(url, leaderboard)
+        console.log("postei isso na api heim")
+    } catch (error) {
+        console.error("deu ruim na api", error)
+    }
 
-return apiScoreboard.post(url, leaderboard)
+
 }

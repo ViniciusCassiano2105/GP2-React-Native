@@ -8,5 +8,12 @@ export const styles = StyleSheet.create({
     tabButton: {
         height: '100%',
         width: '30%',
-    }
+    },
+
+    tabLink: {
+        alignItems: 'center',
+        height: 50,
+        width: 110,
+        justifyContent: 'center'
+    },
 })
