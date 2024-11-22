@@ -3,7 +3,7 @@ import { Animated, SafeAreaView, Text, View, Image, TouchableOpacity } from "rea
 import { styles } from "./styles";
 import logo from "./../../assets/logo.png";
 import { useFocusEffect } from "@react-navigation/native";
-import { Audio, ResizeMode, Video } from "expo-av"; 
+import { Audio, ResizeMode, Video } from "expo-av";
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { useNavigation } from "@react-navigation/native";
 
@@ -22,10 +22,10 @@ export const Creditos = () => {
   const finalMessageY = useRef(new Animated.Value(300)).current;
   const finalMessageOpacity = useRef(new Animated.Value(0)).current;
   const [showMessage, setShowMessage] = useState(false);
-  const [showMenuButton, setShowMenuButton] = useState(false); 
+  const [showMenuButton, setShowMenuButton] = useState(false);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
     try {
@@ -72,7 +72,7 @@ export const Creditos = () => {
           useNativeDriver: true,
         }),
       ]).start(() => {
-        setShowMenuButton(true); 
+        setShowMenuButton(true);
       });
     });
   }, [scrollY]);
@@ -99,18 +99,21 @@ export const Creditos = () => {
   );
 
   const handleNavigateToMenu = () => {
-    navigation.navigate("StartScreen"); 
+    navigation.navigate("StartScreen");
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Fundo preto */}
+      <View style={styles.backgroundLayer} />
 
+      {/* Vídeo acima do fundo preto */}
       <Video
-        style={styles.video} 
+        style={styles.video}
         source={require("./../../assets/backgroundfogos.mp4")}
         resizeMode={"cover" as ResizeMode}
-        isLooping
         shouldPlay
+        isLooping
       />
 
       {!showMessage ? (
@@ -152,8 +155,6 @@ export const Creditos = () => {
         >
           <Text style={styles.finalMessage}>O universo agradece!</Text>
           <Text style={styles.finalMessage}>Você fez história no Space Clicker!</Text>
-          <Text style={styles.finalMessage}>Obrigado por sua jornada!</Text>
-          <Text style={styles.finalMessage}>Nos vemos no próximo jogo!</Text>
           <Image source={logo} style={styles.logo} />
         </Animated.View>
       )}
