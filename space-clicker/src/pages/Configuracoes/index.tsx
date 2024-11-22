@@ -34,7 +34,7 @@ export const Configuracoes = () => {
   };
 
   const changeVolume = (delta: number) => {
-    setVolume(Math.min(100, Math.max(0, volume + delta)));
+    setVolume(Math.min(1, Math.max(0, volume + delta)));
   };
 
   const playMusic = async () => {
@@ -116,13 +116,13 @@ export const Configuracoes = () => {
         {/* Alterar Volume */}
         <View style={styles.volumeControl}>
           <TouchableOpacity
-            onPress={() => changeVolume(-10)}
+            onPress={() => changeVolume(-0.1)}
             style={styles.settingButton}
           >
             <Text style={styles.settingText}>- Volume</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => changeVolume(10)}
+            onPress={() => changeVolume(0.1)}
             style={styles.settingButton}
           >
             <Text style={styles.settingText}>+ Volume</Text>
@@ -135,6 +135,8 @@ export const Configuracoes = () => {
           placeholder="Digite seu nick"
           value={nickInput}
           onChangeText={setNickInput}
+          maxLength={3}
+          autoCapitalize="characters"
         />
         <TouchableOpacity onPress={handleSaveNick} style={styles.saveButton}>
           <Text style={styles.saveButtonText}>Salvar Nick</Text>
