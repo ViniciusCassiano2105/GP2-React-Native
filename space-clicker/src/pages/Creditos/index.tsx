@@ -21,6 +21,35 @@ export const Creditos = () => {
   const finalMessageY = useRef(new Animated.Value(300)).current;
   const finalMessageOpacity = useRef(new Animated.Value(0)).current;
   const [showMessage, setShowMessage] = useState(false);
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+  // Função para tocar música
+  const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require("./starwars.mp3"),
+        {
+          shouldPlay: true,
+          isLooping: false, // Música tocará apenas uma vez
+          volume,
+        }
+      );
+
+      // Define o callback para parar a música quando terminar
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync(); // Interrompe e descarrega o som
+          setSound(null); // Remove o estado do som
+        }
+      });
+
+      setSound(sound);
+      return sound;
+    } catch (error) {
+      console.error("Erro ao carregar o áudio:", error);
+      return null;
+    }
+  };
 
   useEffect(() => {
     Animated.timing(scrollY, {
@@ -44,32 +73,12 @@ export const Creditos = () => {
     });
   }, [scrollY]);
 
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
-
-  const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
-    try {
-      const { sound } = await Audio.Sound.createAsync(
-        require("./starwars.mp3"),
-        {
-          shouldPlay: true,
-          isLooping: true,
-          volume,
-        }
-      );
-      setSound(sound);
-      return sound;
-    } catch (error) {
-      console.error("Erro ao carregar o áudio:", error);
-      return null;
-    }
-  };
-
   useFocusEffect(
     useCallback(() => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(0.5);
+        const sound = await playMusic(0.5); // Ajuste o volume conforme necessário
         if (sound) {
           currentSound = sound;
         }
@@ -78,13 +87,15 @@ export const Creditos = () => {
       startMusic();
 
       return () => {
+        // Interrompe o som ao sair do componente
         if (currentSound) {
-          currentSound.unloadAsync();
+          currentSound.unloadAsync().catch((error) => {
+            console.error("Erro ao parar o áudio:", error);
+          });
         }
       };
     }, [])
   );
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -129,9 +140,8 @@ export const Creditos = () => {
           <Text style={styles.finalMessage}>Space Clicker!!!</Text>
           <Image source={logo} style={styles.logo} />
         </Animated.View>
-        
       )}
-       {sound && <ControleDeVolume sound={sound} />}
+      {sound && <ControleDeVolume sound={sound} />}
     </SafeAreaView>
   );
 };
