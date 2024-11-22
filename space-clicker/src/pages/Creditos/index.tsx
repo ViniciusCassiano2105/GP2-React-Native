@@ -6,6 +6,10 @@ import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../routes/StackNavigator";
+
+
 
 const creditosData = [
   { role: "Engenheiro de Gameplay", name: "Arthur Carreiro" },
@@ -17,6 +21,8 @@ const creditosData = [
   { role: "Escultor 3D", name: "Weliton Schitini" },
 ];
 
+
+
 export const Creditos = () => {
   const scrollY = useRef(new Animated.Value(500)).current;
   const finalMessageY = useRef(new Animated.Value(300)).current;
@@ -25,7 +31,13 @@ export const Creditos = () => {
   const [showMenuButton, setShowMenuButton] = useState(false);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
-  const navigation = useNavigation();
+
+  type CreditoNavigationProp = NativeStackNavigationProp<
+    RootStackParamList,
+    "StartScreen"
+  >;
+
+  const navigation = useNavigation<CreditoNavigationProp>();
 
   const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
     try {

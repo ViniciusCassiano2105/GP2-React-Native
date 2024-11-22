@@ -5,16 +5,23 @@ import { styles } from "./styles";
 import { useFocusEffect } from "@react-navigation/native";
 import { useMyContext } from "../../context/General/MyContext";
 import { useNavigation } from "@react-navigation/native"; // Importando o hook de navegação
+import { RootStackParamList } from "../../routes/StackNavigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const Configuracoes = () => {
   const { player, setPlayer } = useMyContext();
-  const navigation = useNavigation(); // Criando o objeto de navegação
+  const navigation = useNavigation<ConfigNavigationProp>(); // Criando o objeto de navegação
 
   const [difficulty, setDifficulty] = useState("normal");
   const [volume, setVolume] = useState(50);
   const [score, setScore] = useState(0);
   const [speed, setSpeed] = useState(1000);
-  const [nickInput, setNickInput] = useState(player || ""); 
+  const [nickInput, setNickInput] = useState(player || "");
+
+  type ConfigNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Creditos"
+>;
 
   useEffect(() => {
     if (difficulty === "Fácil") setSpeed(1500);
@@ -51,7 +58,7 @@ export const Configuracoes = () => {
   };
 
   const handleCredits = () => {
-    navigation.navigate("Creditos"); 
+    navigation.navigate("Creditos");
   };
 
   useFocusEffect(
@@ -82,20 +89,7 @@ export const Configuracoes = () => {
         isLooping
         shouldPlay
       />
-      {/* Cabeçalho */}
-      {/* <View style={styles.header}>
-        <Text style={styles.title}>Space-Clicker</Text>
-      </View> */}
-
-      {/* Botão Principal */}
-      {/* <TouchableOpacity onPress={handleClick} style={styles.shipButton}>
-        <Image
-          source={require("../../assets/logo.png")}
-          style={styles.shipImage}
-        />
-      </TouchableOpacity> */}
-
-      {/* Configurações */}
+      
       <View style={styles.settings}>
         <Text style={styles.settingsTitle}>Configurações</Text>
 
@@ -146,7 +140,7 @@ export const Configuracoes = () => {
           <Text style={styles.saveButtonText}>Salvar Nick</Text>
         </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleCredits} style={styles.settingButton}>
+        <TouchableOpacity onPress={handleCredits} style={styles.settingButton}>
           <Text style={styles.settingText}>Créditos</Text>
         </TouchableOpacity>
       </View>
