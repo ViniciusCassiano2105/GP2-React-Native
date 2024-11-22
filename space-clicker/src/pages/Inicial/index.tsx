@@ -1,9 +1,8 @@
 import { Audio, ResizeMode, Video } from "expo-av";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
 import { useMyContext } from "../../context/General/MyContext";
 
@@ -36,7 +35,7 @@ export const Inicial = () => {
     navigation.navigate("HomeTabs", { screen: "Configurações" });
   };
 
-  const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
+  const playMusic = async (): Promise<Audio.Sound | null> => {
     try {
       const { sound } = await Audio.Sound.createAsync(
         require("./CrashBandicoot3WarpedTheme.mp3"),
@@ -59,7 +58,7 @@ export const Inicial = () => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(volume);
+        const sound = await playMusic();
         if (sound) {
           currentSound = sound;
         }
@@ -74,6 +73,13 @@ export const Inicial = () => {
       };
     }, [])
   );
+
+
+  useEffect(() => {
+    if (sound) {
+      sound.setVolumeAsync(volume);
+    }
+  }, [volume, sound]);
 
   return (
     <View style={styles.container}>
