@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#000", 
     justifyContent: "center",
     alignItems: "center",
   },
@@ -14,10 +14,11 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 60,
-    color: "#FFD700",
+    color: "#FFD700", 
     textAlign: "center",
     marginBottom: 20,
     fontWeight: "bold",
+
   },
   creditItem: {
     marginVertical: 10,
@@ -27,6 +28,7 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     color: "#FFF",
     textAlign: "center",
+ 
   },
   name: {
     fontSize: 20,
@@ -42,10 +44,16 @@ export const styles = StyleSheet.create({
   },
   finalMessage: {
     fontSize: 30,
-    color: "#FFD700",
+    color: "#FFD700", 
     fontWeight: "bold",
     textAlign: "center",
     marginVertical: 5,
+   
+    textShadowColor: "rgba(255, 215, 0, 0.7)", 
+    textShadowOffset: { width: 3, height: 3 }, 
+    textShadowRadius: 12, 
+    opacity: 0.9,
+   
   },
   logo: {
     width: 300,
