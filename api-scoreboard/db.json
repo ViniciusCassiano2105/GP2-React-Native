@@ -5,15 +5,20 @@
       "nome": "ARC",
       "pontuacao": 540
     },
-	{
+    {
       "id": "bfe3",
       "nome": "VCA",
       "pontuacao": 380
     },
-	{
+    {
       "id": "kt5s",
       "nome": "GBT",
       "pontuacao": 120
+    },
+    {
+      "id": "tiruliro",
+      "nome": "ART",
+      "pontuacao": 1000
     }
   ]
 }

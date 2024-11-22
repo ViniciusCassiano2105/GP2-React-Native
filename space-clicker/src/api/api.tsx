@@ -15,12 +15,12 @@ const generateId = (): string => {
 };
 
 export const buscaPlacar = async () => {
-    const url = '/leaderboard';
+    const url = 'leaderboard/';
     return apiScoreboard.get(url);
 };
 
 export const registraPontos = (nome: string, pontuacao: number) => {
-    const url = '/leaderboard';
+    const url = 'leaderboard/';
 
     const leaderboard: Leaderboard = {
         id: generateId(),
