@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
   settings: {
     width: "90%",
     position: "absolute",
-    bottom: 55,
+    bottom: 150,
     alignItems: "center",
     paddingVertical: 20,
     backgroundColor: "rgba(0, 0, 0, 0.7)",
