@@ -7,7 +7,7 @@ import { styles } from "./styles";
 import { useMyContext } from "../../context/General/MyContext";
 
 interface ControleDeVolumeProps {
-  sound: Audio.Sound;
+  sound: Audio.Sound | null;
 }
 
 export const ControleDeVolume: React.FC<ControleDeVolumeProps> = ({
@@ -16,20 +16,20 @@ export const ControleDeVolume: React.FC<ControleDeVolumeProps> = ({
   const { volume, setVolume } = useMyContext();
   const [showVolumeControl, setShowVolumeControl] = useState(false);
 
-  // Função para alterar o volume
   const handleVolumeChange = async (value: number) => {
     setVolume(value);
-    try {
-      const status = await sound.getStatusAsync();
-      if (status.isLoaded) {
-        await sound.setVolumeAsync(value);
+    if (sound) {
+      try {
+        const status = await sound.getStatusAsync();
+        if (status.isLoaded) {
+          await sound.setVolumeAsync(value);
+        }
+      } catch (error) {
+        console.error("Erro ao ajustar o volume:", error);
       }
-    } catch (error) {
-      console.error("Erro ao ajustar o volume:", error);
     }
   };
 
-  // Função para alternar visibilidade do controle de volume
   const toggleVolumeControl = () => {
     setShowVolumeControl(!showVolumeControl);
   };
