@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#121000',
         borderRadius: 20,
         padding: "5%",
-        alignItems: "flex-start",
+        alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -31,38 +31,48 @@ export const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 10,
-        width: "90%",
+        textAlign: 'center'
     },
+
+    score:{
+        color: '#02f702',
+        fontSize: 60,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'center'
+    },
+
+    button: {
+        width: '95%',
+        backgroundColor: 'blue',
+        height: 30,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    buttonText: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: 'center'
+    },
+
 	closeIcon: {
         tintColor: '#fff',
         height: 25,
         width: 25
     },
-	textTitle: {
-        color: '#fff',
-        fontSize: 16,
+
+    input: {
+        height: 40,
+        width: '50%',
+        marginTop: 20,
         marginBottom: 10,
-        fontWeight: 'bold',
-        textAlign: 'justify',
-        marginRight: 2
-    },
-	text: {
-        color: '#fff',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 3,
         fontSize: 16,
-        marginBottom: 10,
-        textAlign: 'justify'
-    },
-	firstStatsContainer: {
-        flexDirection: "row",
-    },
-	firstStats: {
-        flexDirection: "column",
-        width: "30%",
-        marginHorizontal: 5
-    },
-	descriptionContainer: {
-        flexDirection: "column",
-        width: "100%"
+        backgroundColor: '#fff',
+        textAlign: 'center',
     },
 })

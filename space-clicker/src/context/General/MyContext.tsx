@@ -13,7 +13,9 @@ interface MyContextProps {
     score: number;
     setScore: React.Dispatch<React.SetStateAction<number>>;
     player: string;
-    setPlayer: React.Dispatch<React.SetStateAction<string>>
+    setPlayer: React.Dispatch<React.SetStateAction<string>>;
+    isModalVisible: boolean;
+    setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 
 }
 
@@ -46,6 +48,10 @@ const MyContext = createContext<MyContextProps>({
     setPlayer: () => {
         throw new Error('setScore foi chamado fora do MyProvider')
     },
+    isModalVisible: false,
+    setIsModalVisible: () => {
+        throw new Error('setIsModalVisible foi chamado fora do MyProvider')
+    },
 })
 
 export const MyProvider = ({ children }: MyProviderProps) => {
@@ -55,6 +61,7 @@ export const MyProvider = ({ children }: MyProviderProps) => {
     const [clickCount, setClickCount] = useState(0); // Número de cliques
     const [score, setScore] = useState(0); // Pontuação do jogador
     const [player, setPlayer] = useState('');
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
     return (
 
@@ -71,7 +78,9 @@ export const MyProvider = ({ children }: MyProviderProps) => {
                 score,
                 setScore,
                 player,
-                setPlayer
+                setPlayer,
+                isModalVisible,
+                setIsModalVisible
             }}
         >
             {children}

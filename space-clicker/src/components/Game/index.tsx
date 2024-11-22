@@ -6,6 +6,7 @@ import { useMyContext } from "../../context/General/MyContext";
 import startBtn from './../../assets/botao-start.png';
 import ship from "./../../assets/spaceship.png";
 import { styles } from "./styles";
+import { ModalDetails } from "../Modals/ScoreModal";
 
 export const Game = () => {
   const { size, setSize, isPlaying, setIsPlaying } = useMyContext();
@@ -72,6 +73,8 @@ export const Game = () => {
   );
 
   const handleStartTouch = () => {
+    setClickCount(0)
+    setScore(0)
     setIsPlaying(true);
   }
 
@@ -100,6 +103,7 @@ export const Game = () => {
         <Image source={startBtn}
         style={{height: 180, resizeMode:'contain'}}/>
         </TouchableOpacity>
+        <ModalDetails/>
 
     </View>
   );

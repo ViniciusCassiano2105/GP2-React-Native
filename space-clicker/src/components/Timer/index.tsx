@@ -6,7 +6,7 @@ import { useMyContext } from "../../context/General/MyContext";
 export default () => {
   const [time, setTime] = useState(30.00);
   const [isRunning, setIsRunning] = useState(false);
-  const { isPlaying, setIsPlaying } = useMyContext();
+  const { isPlaying, setIsPlaying, setIsModalVisible } = useMyContext();
 
   useEffect(() => {
     isPlaying ? setIsRunning(true) : null
@@ -25,6 +25,7 @@ export default () => {
       setIsRunning(false);
       setTime(30.00)
       setIsPlaying(false);
+      setIsModalVisible(true);
     }
 
 

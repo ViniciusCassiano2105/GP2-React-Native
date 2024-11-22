@@ -25,9 +25,8 @@ type BottomTabsParamList = {
     Configurações: undefined;
 };
 
-export const ModalDetails = ({ nome: string }: ModalDetailsProps) => {
-    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    const { score, player } = useMyContext()
+export const ModalDetails = () => {
+    const { score, player, isModalVisible, setIsModalVisible } = useMyContext()
     const [newPlayer, setNewPlayer] = useState('');
     const navigation = useNavigation<ModalScreenNavigationProp>();
 
@@ -42,11 +41,13 @@ export const ModalDetails = ({ nome: string }: ModalDetailsProps) => {
 
     const handlePostPlayer = () => {
         registraPontos(player, score);
+        setIsModalVisible(false)
         navigation.navigate("HomeTabs", { screen: "Ranking" })
     }
 
     const handlePostNewPlayer = () => {
         registraPontos(newPlayer, score)
+        setIsModalVisible(false)
         navigation.navigate("HomeTabs", { screen: "Ranking" })
     }
 
@@ -60,22 +61,27 @@ export const ModalDetails = ({ nome: string }: ModalDetailsProps) => {
         }}
     >
         <View style={styles.modal}>
-            <Text>Pontuação total:</Text>
-            <Text>{score}</Text>
-            <TouchableOpacity
-                disabled={false}
-                onPress={handlePostPlayer}
-            >Registrar minha pontuação como {player}</TouchableOpacity>
-            <TextInput
-                placeholder={'Digite um novo nick'}
-                onChangeText={handlePlayerChange}
-                value={newPlayer}
-                maxLength={3}
-            />
-            <TouchableOpacity
-                onPress={handlePostNewPlayer}
-                disabled={newPlayer.length == 3 ? false : true}
-            >Registrar com novo nick</TouchableOpacity>
+            <View style={styles.modalContainer}>
+                <Text style={styles.title}>Pontuação total:</Text>
+                <Text style={styles.score}>{score}</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    disabled={false}
+                    onPress={handlePostPlayer}
+                ><Text style={styles.buttonText}>Registrar minha pontuação como ART{player}</Text></TouchableOpacity>
+                <TextInput
+                    style={styles.input}
+                    placeholder={'Novo nick'}
+                    onChangeText={handlePlayerChange}
+                    value={newPlayer}
+                    maxLength={3}
+                />
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={handlePostNewPlayer}
+                    disabled={newPlayer.length == 3 ? false : true}
+                ><Text style={styles.buttonText}>Registrar com novo nick</Text></TouchableOpacity>
+            </View>
         </View>
     </Modal>
 }

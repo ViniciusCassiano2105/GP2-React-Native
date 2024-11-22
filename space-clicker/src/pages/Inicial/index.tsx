@@ -1,14 +1,14 @@
 import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useCallback, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useNavigation, useFocusEffect } from "@react-navigation/native"; 
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
 
 type RootStackParamList = {
   StartScreen: undefined;
-  HomeTabs: { screen: keyof BottomTabsParamList }; 
+  HomeTabs: { screen: keyof BottomTabsParamList };
 };
 
 type BottomTabsParamList = {
