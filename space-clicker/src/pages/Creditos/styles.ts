@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -53,19 +52,27 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     resizeMode: "contain",
   },
-  // Novo estilo para o botão MENU
+
   menuButton: {
-    backgroundColor: '#FF8C00', // Cor laranja mais suave
+    backgroundColor: "#FF8C00", 
     height: 50,
     width: 150,
     borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 650, // Espaço abaixo da imagem
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 650, 
   },
   textButton: {
     color: "white",
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 21,
-  }
+  },
+  video: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: -1, 
+  },
 });

@@ -3,9 +3,9 @@ import { Animated, SafeAreaView, Text, View, Image, TouchableOpacity } from "rea
 import { styles } from "./styles";
 import logo from "./../../assets/logo.png";
 import { useFocusEffect } from "@react-navigation/native";
-import { Audio } from "expo-av";
+import { Audio, ResizeMode, Video } from "expo-av"; 
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
-import { useNavigation } from "@react-navigation/native"; // Importando o hook de navegação
+import { useNavigation } from "@react-navigation/native";
 
 const creditosData = [
   { role: "Engenheiro de Gameplay", name: "Arthur Carreiro" },
@@ -22,19 +22,18 @@ export const Creditos = () => {
   const finalMessageY = useRef(new Animated.Value(300)).current;
   const finalMessageOpacity = useRef(new Animated.Value(0)).current;
   const [showMessage, setShowMessage] = useState(false);
-  const [showMenuButton, setShowMenuButton] = useState(false); // Novo estado para controlar a visibilidade do botão
+  const [showMenuButton, setShowMenuButton] = useState(false); 
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
-  const navigation = useNavigation(); // Hook de navegação
+  const navigation = useNavigation(); 
 
-  // Função para tocar música
   const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
     try {
       const { sound } = await Audio.Sound.createAsync(
         require("./starwars.mp3"),
         {
           shouldPlay: true,
-          isLooping: false, // Música tocará apenas uma vez
+          isLooping: false,
           volume,
         }
       );
@@ -73,7 +72,6 @@ export const Creditos = () => {
           useNativeDriver: true,
         }),
       ]).start(() => {
-        // Após a animação de mensagens, mostra o botão
         setShowMenuButton(true); 
       });
     });
@@ -101,11 +99,20 @@ export const Creditos = () => {
   );
 
   const handleNavigateToMenu = () => {
-    navigation.navigate("StartScreen"); // Navega de volta para a tela inicial
+    navigation.navigate("StartScreen"); 
   };
 
   return (
     <SafeAreaView style={styles.container}>
+
+      <Video
+        style={styles.video} 
+        source={require("./../../assets/backgroundfogos.mp4")}
+        resizeMode={"cover" as ResizeMode}
+        isLooping
+        shouldPlay
+      />
+
       {!showMessage ? (
         <Animated.View
           style={[
