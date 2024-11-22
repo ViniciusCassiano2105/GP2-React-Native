@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Animated, SafeAreaView, Text, View, Image } from "react-native";
+import { Animated, SafeAreaView, Text, View, Image, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import logo from "./../../assets/logo.png";
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio } from "expo-av";
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
+import { useNavigation } from "@react-navigation/native"; // Importando o hook de navegação
 
 const creditosData = [
   { role: "Engenheiro de Gameplay", name: "Arthur Carreiro" },
@@ -21,7 +22,10 @@ export const Creditos = () => {
   const finalMessageY = useRef(new Animated.Value(300)).current;
   const finalMessageOpacity = useRef(new Animated.Value(0)).current;
   const [showMessage, setShowMessage] = useState(false);
+  const [showMenuButton, setShowMenuButton] = useState(false); // Novo estado para controlar a visibilidade do botão
   const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+  const navigation = useNavigation(); // Hook de navegação
 
   // Função para tocar música
   const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
@@ -35,11 +39,10 @@ export const Creditos = () => {
         }
       );
 
-      // Define o callback para parar a música quando terminar
       sound.setOnPlaybackStatusUpdate((status) => {
         if (status.isLoaded && status.didJustFinish) {
-          sound.unloadAsync(); // Interrompe e descarrega o som
-          setSound(null); // Remove o estado do som
+          sound.unloadAsync();
+          setSound(null);
         }
       });
 
@@ -69,7 +72,10 @@ export const Creditos = () => {
           duration: 2000,
           useNativeDriver: true,
         }),
-      ]).start();
+      ]).start(() => {
+        // Após a animação de mensagens, mostra o botão
+        setShowMenuButton(true); 
+      });
     });
   }, [scrollY]);
 
@@ -78,7 +84,7 @@ export const Creditos = () => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(0.5); // Ajuste o volume conforme necessário
+        const sound = await playMusic(0.5);
         if (sound) {
           currentSound = sound;
         }
@@ -87,15 +93,16 @@ export const Creditos = () => {
       startMusic();
 
       return () => {
-        // Interrompe o som ao sair do componente
         if (currentSound) {
-          currentSound.unloadAsync().catch((error) => {
-            console.error("Erro ao parar o áudio:", error);
-          });
+          currentSound.unloadAsync();
         }
       };
     }, [])
   );
+
+  const handleNavigateToMenu = () => {
+    navigation.navigate("StartScreen"); // Navega de volta para a tela inicial
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -143,6 +150,13 @@ export const Creditos = () => {
           <Image source={logo} style={styles.logo} />
         </Animated.View>
       )}
+
+      {showMenuButton && (
+        <TouchableOpacity onPress={handleNavigateToMenu} style={styles.menuButton}>
+          <Text style={styles.textButton}>MENU</Text>
+        </TouchableOpacity>
+      )}
+
       {sound && <ControleDeVolume sound={sound} />}
     </SafeAreaView>
   );
