@@ -83,17 +83,17 @@ export const Configuracoes = () => {
         shouldPlay
       />
       {/* Cabeçalho */}
-      <View style={styles.header}>
-        <Text style={styles.title}>SpaceClick</Text>
-      </View>
+      {/* <View style={styles.header}>
+        <Text style={styles.title}>Space-Clicker</Text>
+      </View> */}
 
       {/* Botão Principal */}
-      <TouchableOpacity onPress={handleClick} style={styles.shipButton}>
+      {/* <TouchableOpacity onPress={handleClick} style={styles.shipButton}>
         <Image
           source={require("../../assets/logo.png")}
           style={styles.shipImage}
         />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {/* Configurações */}
       <View style={styles.settings}>
