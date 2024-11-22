@@ -21,12 +21,7 @@ export const styles = StyleSheet.create({
     maxHeight: "80%",
     borderWidth: 2,
     borderColor: "#FFD700",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: 15,
+    position: "relative",
   },
   title: {
     color: "#FFD700",
@@ -75,10 +70,23 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     textTransform: "uppercase",
   },
-  closeIcon: {
-    tintColor: "#FFD700",
-    height: 25,
-    width: 25,
+  closeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    backgroundColor: "#FF4500",
+    borderRadius: 15,
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFD700",
+  },
+  closeButtonText: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   input: {
     height: 50,

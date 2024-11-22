@@ -81,7 +81,14 @@ export const ModalDetails = () => {
           }}
         >
           <View style={styles.modalContainer}>
-            <Text style={styles.title}>Pontuação total:</Text>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setIsModalVisible(false)}
+            >
+              <Text style={styles.closeButtonText}>X</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.title}>Pontuação total</Text>
             <Text style={styles.score}>{score}</Text>
             <Text style={styles.spacecoins}>SpaceCoins</Text>
             <TouchableOpacity
