@@ -4,9 +4,11 @@ import { Image, Text, TextInput, TouchableOpacity, View, Alert } from "react-nat
 import { styles } from "./styles";
 import { useFocusEffect } from "@react-navigation/native";
 import { useMyContext } from "../../context/General/MyContext";
+import { useNavigation } from "@react-navigation/native"; // Importando o hook de navegação
 
 export const Configuracoes = () => {
   const { player, setPlayer } = useMyContext();
+  const navigation = useNavigation(); // Criando o objeto de navegação
 
   const [difficulty, setDifficulty] = useState("normal");
   const [volume, setVolume] = useState(50);
@@ -46,6 +48,10 @@ export const Configuracoes = () => {
   const handleSaveNick = () => {
     setPlayer(nickInput); // Atualiza o contexto com o nick digitado
     Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput}`);
+  };
+
+  const handleCredits = () => {
+    navigation.navigate("Creditos"); 
   };
 
   useFocusEffect(
@@ -138,6 +144,10 @@ export const Configuracoes = () => {
         />
         <TouchableOpacity onPress={handleSaveNick} style={styles.saveButton}>
           <Text style={styles.saveButtonText}>Salvar Nick</Text>
+        </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleCredits} style={styles.settingButton}>
+          <Text style={styles.settingText}>Créditos</Text>
         </TouchableOpacity>
       </View>
     </View>
