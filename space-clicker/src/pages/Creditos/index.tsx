@@ -104,10 +104,8 @@ export const Creditos = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Fundo preto */}
       <View style={styles.backgroundLayer} />
 
-      {/* Vídeo acima do fundo preto */}
       <Video
         style={styles.video}
         source={require("./../../assets/backgroundfogos.mp4")}
