@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Audio, ResizeMode, Video } from "expo-av";
@@ -9,79 +8,70 @@ import { RootStackParamList } from "../../routes/StackNavigator";
 import { styles } from "./styles";
 
 export const Configuracoes = () => {
-  const { volume, setVolume, setDificuldade, player, setPlayer, sound, setSound } = useMyContext();
-  const navigation = useNavigation<ConfigNavigationProp>(); // Criando o objeto de navegação
+  const {
+    setDificuldade,
+    player,
+    setPlayer,
+    sound,
+    setSound,
+  } = useMyContext();
+  const navigation = useNavigation<ConfigNavigationProp>();
 
-  const [nickInput, setNickInput] = useState(player || "");
+  const [nickInput, setNickInput] = useState(
+    player ? player.replace(/[^a-zA-Z0-9]/g, "").toUpperCase() : ""
+  );
 
   type ConfigNavigationProp = NativeStackNavigationProp<
     RootStackParamList,
     "Creditos"
   >;
 
-
-  const changeVolume = async (delta: number) => {
-    const newVolume = Math.min(1, Math.max(0, volume + delta))
-    setVolume(newVolume)
-    storeData(newVolume, 'volume')
-    if (sound) {
-      await sound.setVolumeAsync(newVolume)
+  const playMusic = async (): Promise<Audio.Sound | null> => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require("./StardustSpeedwayZoneAct2.mp3"),
+        {
+          shouldPlay: true,
+          isLooping: true,
+        }
+      );
+      setSound(sound);
+      return sound;
+    } catch (error) {
+      console.error("Erro ao carregar o áudio:", error);
+      return null;
     }
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      let currentSound: Audio.Sound | null = null;
+
+      const startMusic = async () => {
+        const sound = await playMusic();
+        if (sound) {
+          currentSound = sound;
+        }
+      };
+
+      startMusic();
+
+      return () => {
+        if (currentSound) {
+          currentSound.unloadAsync();
+        }
+      };
+    }, [])
+  );
+
   const handleSaveNick = () => {
     setPlayer(nickInput);
-    storeData(nickInput, 'nickname')
     Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput}`);
   };
 
   const handleCredits = () => {
     navigation.navigate("Creditos");
   };
-
-  useFocusEffect(
-    useCallback(() => {
-      const playMusic = async () => {
-        if (!sound) {
-          try {
-            const { sound: newSound } = await Audio.Sound.createAsync(
-              require("./StardustSpeedwayZoneAct2.mp3"),
-              {
-                shouldPlay: true,
-                isLooping: true,
-                volume,
-              }
-            );
-            setSound(newSound);
-          } catch (error) {
-            console.error("Erro ao carregar o Áudio:", error);
-          }
-        } else {
-          const status = await sound.getStatusAsync();
-          if (status.isLoaded && !status.isPlaying) {
-            await sound.playAsync();
-          }
-        }
-      };
-
-      playMusic();
-
-      return () => {
-        if (sound) {
-          sound.pauseAsync();
-        }
-      };
-    }, [sound, volume])
-  );
-
-  const storeData = async (value: any, key: string) => {
-    try {
-      await AsyncStorage.setItem(key, `${value}`);
-    } catch (e) {
-      console.error("Não foi possível registrar as informações.")
-    }
-  };
-
 
   return (
     <View style={styles.container}>
@@ -99,48 +89,23 @@ export const Configuracoes = () => {
 
         {/* Alterar dificuldade */}
         <TouchableOpacity
-          onPress={() => {
-            setDificuldade("Fácil")
-            storeData("Fácil", "dificuldade")
-          }}
+          onPress={() => setDificuldade("Fácil")}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Fácil</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            setDificuldade("Normal")
-            storeData("Normal", "dificuldade")
-          }}
+          onPress={() => setDificuldade("Normal")}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Normal</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            setDificuldade("Difícil")
-            storeData("Difícil", "dificuldade")
-          }}
+          onPress={() => setDificuldade("Difícil")}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Difícil</Text>
         </TouchableOpacity>
-
-        {/* Alterar Volume */}
-        <View style={styles.volumeControl}>
-          <TouchableOpacity
-            onPress={() => changeVolume(-0.1)}
-            style={styles.settingButton}
-          >
-            <Text style={styles.settingText}>- Volume</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => changeVolume(0.1)}
-            style={styles.settingButton}
-          >
-            <Text style={styles.settingText}>+ Volume</Text>
-          </TouchableOpacity>
-        </View>
 
         {/* Alterar Nick */}
         <TextInput
