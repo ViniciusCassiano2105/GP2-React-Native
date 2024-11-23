@@ -2,7 +2,14 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useCallback, useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
+import {
+  Alert,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useMyContext } from "../../context/General/MyContext";
 import { RootStackParamList } from "../../routes/StackNavigator";
 import { styles } from "./styles";
@@ -59,8 +66,27 @@ export const Configuracoes = () => {
   );
 
   const handleSaveNick = () => {
-    setPlayer(nickInput);
-    Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput}`);
+    if (nickInput.trim() === "") {
+      Alert.alert("Nick inválido!", "Por favor, insira um nick válido. 😅");
+    } else {
+      setPlayer(nickInput);
+      Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput} 🏆`);
+    }
+  };
+
+  const handleSelectDificuldade = (dificuldade: string) => {
+    let mensagem = "";
+
+    if (dificuldade === "Fácil") {
+      mensagem = "Tá Fácil Demais 😄";
+    } else if (dificuldade === "Normal") {
+      mensagem = "Mais ou Menos 😐";
+    } else if (dificuldade === "Difícil") {
+      mensagem = "Tá Enrolado(a) 😵";
+    }
+
+    setDificuldade(dificuldade);
+    Alert.alert("Dificuldade selecionada!", mensagem);
   };
 
   const handleCredits = () => {
@@ -87,7 +113,7 @@ export const Configuracoes = () => {
           <Text style={styles.sectionTitle}>Dificuldade</Text>
           <View style={styles.settingOption}>
             <TouchableOpacity
-              onPress={() => setDificuldade("Fácil")}
+              onPress={() => handleSelectDificuldade("Fácil")}
               style={styles.settingButton}
             >
               <Text style={styles.settingText}>Fácil</Text>
@@ -99,7 +125,7 @@ export const Configuracoes = () => {
           </View>
           <View style={styles.settingOption}>
             <TouchableOpacity
-              onPress={() => setDificuldade("Normal")}
+              onPress={() => handleSelectDificuldade("Normal")}
               style={styles.settingButton}
             >
               <Text style={styles.settingText}>Normal</Text>
@@ -111,7 +137,7 @@ export const Configuracoes = () => {
           </View>
           <View style={styles.settingOption}>
             <TouchableOpacity
-              onPress={() => setDificuldade("Difícil")}
+              onPress={() => handleSelectDificuldade("Difícil")}
               style={styles.settingButton}
             >
               <Text style={styles.settingText}>Difícil</Text>
@@ -142,7 +168,10 @@ export const Configuracoes = () => {
         {/* Seção de Créditos */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Sobre o Jogo</Text>
-          <TouchableOpacity onPress={handleCredits} style={styles.creditosButton}>
+          <TouchableOpacity
+            onPress={handleCredits}
+            style={styles.creditosButton}
+          >
             <Text style={styles.settingText}>Créditos</Text>
           </TouchableOpacity>
         </View>
