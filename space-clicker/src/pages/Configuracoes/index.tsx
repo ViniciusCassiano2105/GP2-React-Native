@@ -10,59 +10,29 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Configuracoes = () => {
-  const { volume, setVolume, dificuldade, setDificuldade, player, setPlayer } = useMyContext();
+  const { volume, setVolume, dificuldade, setDificuldade, player, setPlayer, sound, setSound } = useMyContext();
   const navigation = useNavigation<ConfigNavigationProp>(); // Criando o objeto de navegação
 
   const [score, setScore] = useState(0);
-  const [speed, setSpeed] = useState(1000);
   const [nickInput, setNickInput] = useState(player || "");
 
   type ConfigNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  "Creditos"
->;
+    RootStackParamList,
+    "Creditos"
+  >;
 
-  useEffect(() => {
-    if (dificuldade === "Fácil") setSpeed(1500);
-    else if (dificuldade === "Difícil") setSpeed(500);
-    else setSpeed(1000);
-  }, [dificuldade]);
 
-  const handleClick = () => {
-    setScore(score + 1);
-  };
-
-  const changeVolume = (delta: number) => {
+  const changeVolume = async (delta: number) => {
     const newVolume = Math.min(1, Math.max(0, volume + delta))
     setVolume(newVolume)
     storeData(newVolume, 'volume')
-  };
-
-  const playMusic = async () => {
-    try {
-      const { sound } = await Audio.Sound.createAsync(
-        require("./StardustSpeedwayZoneAct2.mp3"),
-        {
-          shouldPlay: true,
-          isLooping: true,
-        }
-      );
-      return sound;
-    } catch (error) {
-      console.error("Erro ao carregar o áudio:", error);
-    }
-  };
-
-  const storeData = async (value: any, key: string) => {
-    try {
-      await AsyncStorage.setItem(key, `${value}`);
-    } catch (e) {
-      console.error("Não foi possível registrar as informações.")
+    if (sound) {
+      await sound.setVolumeAsync(newVolume)
     }
   };
 
   const handleSaveNick = () => {
-    setPlayer(nickInput); // Atualiza o contexto com o nick digitado
+    setPlayer(nickInput);
     storeData(nickInput, 'nickname')
     Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput}`);
   };
@@ -73,21 +43,47 @@ export const Configuracoes = () => {
 
   useFocusEffect(
     useCallback(() => {
-      let sound: Audio.Sound | null | undefined = null;
-
-      const startMusic = async () => {
-        sound = await playMusic();
+      const playMusic = async () => {
+        if (!sound) {
+          try {
+            const { sound: newSound } = await Audio.Sound.createAsync(
+              require("./StardustSpeedwayZoneAct2.mp3"),
+              {
+                shouldPlay: true,
+                isLooping: true,
+                volume,
+              }
+            );
+            setSound(newSound);
+          } catch (error) {
+            console.error("Erro ao carregar o Áudio:", error);
+          }
+        } else {
+          const status = await sound.getStatusAsync();
+          if (status.isLoaded && !status.isPlaying) {
+            await sound.playAsync();
+          }
+        }
       };
 
-      startMusic();
+      playMusic();
 
       return () => {
         if (sound) {
-          sound.unloadAsync();
+          sound.pauseAsync();
         }
       };
-    }, [])
+    }, [sound, volume])
   );
+
+  const storeData = async (value: any, key: string) => {
+    try {
+      await AsyncStorage.setItem(key, `${value}`);
+    } catch (e) {
+      console.error("Não foi possível registrar as informações.")
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -107,7 +103,8 @@ export const Configuracoes = () => {
         <TouchableOpacity
           onPress={() => {
             setDificuldade("Fácil")
-          storeData("Fácil", "dificuldade")}}
+            storeData("Fácil", "dificuldade")
+          }}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Fácil</Text>
@@ -115,7 +112,8 @@ export const Configuracoes = () => {
         <TouchableOpacity
           onPress={() => {
             setDificuldade("Normal")
-            storeData("Normal", "dificuldade")}}
+            storeData("Normal", "dificuldade")
+          }}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Normal</Text>
@@ -123,7 +121,8 @@ export const Configuracoes = () => {
         <TouchableOpacity
           onPress={() => {
             setDificuldade("Difícil")
-            storeData("Difícil", "dificuldade")}}
+            storeData("Difícil", "dificuldade")
+          }}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Difícil</Text>

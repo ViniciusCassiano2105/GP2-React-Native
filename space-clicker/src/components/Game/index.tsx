@@ -57,7 +57,7 @@ export const Game = () => {
     } else if (dificuldade == "Normal") {
       setSize(75)
     } else if (dificuldade == "Difícil") {
-      setSize(50)
+      setSize(38)
     }
   }, [dificuldade])
 
