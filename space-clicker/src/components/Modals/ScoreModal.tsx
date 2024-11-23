@@ -1,20 +1,19 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {
+  KeyboardAvoidingView,
   Modal,
+  Platform,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
 } from "react-native";
+import { registraPontos } from "../../api/api";
 import { useMyContext } from "../../context/General/MyContext";
 import { styles } from "./styles";
-import { registraPontos } from "../../api/api";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import axios from "axios";
 
 interface ModalDetailsProps {
   isModalVisible: boolean;
@@ -50,17 +49,6 @@ export const ModalDetails = () => {
   };
 
   const handlePostPlayer = () => {
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:3000/leaderboard/",
-    //     { id: "okosduih", nome: player, pontuacao: score }
-    //   );
-    //   console.log(response.data);
-    //   //colocar o modal de sucesso aqui
-    // } catch (error) {
-    //   console.error("erro na requisição", error);
-    //   //colocar o modal de erro aqui
-    // }
     registraPontos(player, score);
     setIsModalVisible(false);
     navigation.navigate("HomeTabs", { screen: "Ranking" });
@@ -83,7 +71,8 @@ export const ModalDetails = () => {
     >
       <KeyboardAvoidingView
         style={styles.modal}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "position" : "height"} // Evita alteração de tamanho
+        keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 0} // Ajusta deslocamento para iOS
       >
         <ScrollView
           contentContainerStyle={{
@@ -91,6 +80,7 @@ export const ModalDetails = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
+          keyboardShouldPersistTaps="handled" // Fecha teclado ao tocar fora
         >
           <View style={styles.modalContainer}>
             <TouchableOpacity
