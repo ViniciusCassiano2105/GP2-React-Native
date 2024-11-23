@@ -2,19 +2,13 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useCallback, useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
 import { useMyContext } from "../../context/General/MyContext";
 import { RootStackParamList } from "../../routes/StackNavigator";
 import { styles } from "./styles";
 
 export const Configuracoes = () => {
-  const {
-    setDificuldade,
-    player,
-    setPlayer,
-    sound,
-    setSound,
-  } = useMyContext();
+  const { setDificuldade, player, setPlayer, sound, setSound } = useMyContext();
   const navigation = useNavigation<ConfigNavigationProp>();
 
   const [nickInput, setNickInput] = useState(
@@ -75,7 +69,7 @@ export const Configuracoes = () => {
 
   return (
     <View style={styles.container}>
-      {/* Fundo Video */}
+      {/* Fundo com Vídeo */}
       <Video
         style={styles.video}
         source={require("./../../assets/conf.mp4")}
@@ -85,44 +79,73 @@ export const Configuracoes = () => {
       />
 
       <View style={styles.settings}>
+        {/* Título Principal */}
         <Text style={styles.settingsTitle}>Configurações</Text>
 
-        {/* Alterar dificuldade */}
-        <TouchableOpacity
-          onPress={() => setDificuldade("Fácil")}
-          style={styles.settingButton}
-        >
-          <Text style={styles.settingText}>Fácil</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setDificuldade("Normal")}
-          style={styles.settingButton}
-        >
-          <Text style={styles.settingText}>Normal</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setDificuldade("Difícil")}
-          style={styles.settingButton}
-        >
-          <Text style={styles.settingText}>Difícil</Text>
-        </TouchableOpacity>
+        {/* Seção de Dificuldade */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Dificuldade</Text>
+          <View style={styles.settingOption}>
+            <TouchableOpacity
+              onPress={() => setDificuldade("Fácil")}
+              style={styles.settingButton}
+            >
+              <Text style={styles.settingText}>Fácil</Text>
+            </TouchableOpacity>
+            <Image
+              source={require("./../../assets/easy.png")}
+              style={styles.largeIcon}
+            />
+          </View>
+          <View style={styles.settingOption}>
+            <TouchableOpacity
+              onPress={() => setDificuldade("Normal")}
+              style={styles.settingButton}
+            >
+              <Text style={styles.settingText}>Normal</Text>
+            </TouchableOpacity>
+            <Image
+              source={require("./../../assets/medio.png")}
+              style={styles.largeIcon}
+            />
+          </View>
+          <View style={styles.settingOption}>
+            <TouchableOpacity
+              onPress={() => setDificuldade("Difícil")}
+              style={styles.settingButton}
+            >
+              <Text style={styles.settingText}>Difícil</Text>
+            </TouchableOpacity>
+            <Image
+              source={require("./../../assets/hard.png")}
+              style={styles.largeIcon}
+            />
+          </View>
+        </View>
 
-        {/* Alterar Nick */}
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu nick"
-          autoCapitalize="characters"
-          value={nickInput}
-          onChangeText={setNickInput}
-          maxLength={3}
-        />
-        <TouchableOpacity onPress={handleSaveNick} style={styles.saveButton}>
-          <Text style={styles.saveButtonText}>Salvar Nick</Text>
-        </TouchableOpacity>
+        {/* Seção de Novo Apelido */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Novo Apelido</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite seu nick"
+            autoCapitalize="characters"
+            value={nickInput}
+            onChangeText={setNickInput}
+            maxLength={3}
+          />
+          <TouchableOpacity onPress={handleSaveNick} style={styles.saveButton}>
+            <Text style={styles.saveButtonText}>Salvar Nick</Text>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={handleCredits} style={styles.settingButton}>
-          <Text style={styles.settingText}>Créditos</Text>
-        </TouchableOpacity>
+        {/* Seção de Créditos */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Sobre o Jogo</Text>
+          <TouchableOpacity onPress={handleCredits} style={styles.creditosButton}>
+            <Text style={styles.settingText}>Créditos</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
