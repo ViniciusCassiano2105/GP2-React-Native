@@ -18,7 +18,7 @@ export const Game = () => {
   });
 
   const [position, setPosition] = useState({ x: iPosition.x, y: iPosition.y });
-  const { clickCount, setClickCount, score, setScore } = useMyContext();
+  const { clickCount, setClickCount, score, setScore, volume } = useMyContext();
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
   const gerarNovaPosicao = () => {
@@ -28,8 +28,8 @@ export const Game = () => {
   };
 
   const handleShipPress = () => {
-    setClickCount(clickCount + 1); // Incrementa o número de cliques
-    setScore(score + 10); // Incrementa a pontuação
+    setClickCount(clickCount + 1);
+    setScore(score + 10);
     gerarNovaPosicao();
   };
 
@@ -67,7 +67,7 @@ export const Game = () => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(0.5);
+        const sound = await playMusic(volume);
         if (sound) {
           currentSound = sound;
         }

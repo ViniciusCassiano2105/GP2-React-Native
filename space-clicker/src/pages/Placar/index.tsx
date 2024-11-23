@@ -5,9 +5,10 @@ import { SafeAreaView, View } from "react-native";
 import { Colocacao } from "./../../components/Colocacao";
 import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
+import { useMyContext } from "../../context/General/MyContext";
 
 export const Placar = () => {
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const {sound, setSound, volume} = useMyContext();
 
   const playMusic = async (volume: number): Promise<Audio.Sound | null> => {
     try {
@@ -32,7 +33,7 @@ export const Placar = () => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(0.5);
+        const sound = await playMusic(volume);
         if (sound) {
           currentSound = sound;
         }

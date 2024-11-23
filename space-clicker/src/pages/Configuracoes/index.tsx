@@ -1,19 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Audio, ResizeMode, Video } from "expo-av";
-import { Image, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
-import { styles } from "./styles";
-import { useFocusEffect } from "@react-navigation/native";
-import { useMyContext } from "../../context/General/MyContext";
-import { useNavigation } from "@react-navigation/native"; // Importando o hook de navegação
-import { RootStackParamList } from "../../routes/StackNavigator";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Audio, ResizeMode, Video } from "expo-av";
+import React, { useCallback, useState } from "react";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useMyContext } from "../../context/General/MyContext";
+import { RootStackParamList } from "../../routes/StackNavigator";
+import { styles } from "./styles";
 
 export const Configuracoes = () => {
-  const { volume, setVolume, dificuldade, setDificuldade, player, setPlayer, sound, setSound } = useMyContext();
+  const { volume, setVolume, setDificuldade, player, setPlayer, sound, setSound } = useMyContext();
   const navigation = useNavigation<ConfigNavigationProp>(); // Criando o objeto de navegação
 
-  const [score, setScore] = useState(0);
   const [nickInput, setNickInput] = useState(player || "");
 
   type ConfigNavigationProp = NativeStackNavigationProp<

@@ -20,7 +20,7 @@ type BottomTabsParamList = {
 
 export const Inicial = () => {
   const navigation = useNavigation<InicialScreenNavigationProp>();
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const { sound, setSound } = useMyContext();
   const { volume } = useMyContext();
 
   type InicialScreenNavigationProp = NativeStackNavigationProp<

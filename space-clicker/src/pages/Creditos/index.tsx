@@ -8,6 +8,7 @@ import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/StackNavigator";
+import { useMyContext } from "../../context/General/MyContext";
 
 
 
@@ -29,7 +30,7 @@ export const Creditos = () => {
   const finalMessageOpacity = useRef(new Animated.Value(0)).current;
   const [showMessage, setShowMessage] = useState(false);
   const [showMenuButton, setShowMenuButton] = useState(false);
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const {sound, setSound, volume} = useMyContext();
 
 
   type CreditoNavigationProp = NativeStackNavigationProp<
@@ -53,7 +54,7 @@ export const Creditos = () => {
       sound.setOnPlaybackStatusUpdate((status) => {
         if (status.isLoaded && status.didJustFinish) {
           sound.unloadAsync();
-          setSound(null);
+          setSound(undefined);
         }
       });
 
@@ -94,7 +95,7 @@ export const Creditos = () => {
       let currentSound: Audio.Sound | null = null;
 
       const startMusic = async () => {
-        const sound = await playMusic(0.5);
+        const sound = await playMusic(volume);
         if (sound) {
           currentSound = sound;
         }
