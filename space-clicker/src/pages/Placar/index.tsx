@@ -1,11 +1,10 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { SafeAreaView, View } from "react-native";
-import { Colocacao } from "./../../components/Colocacao";
-import { ControleDeVolume } from "./../../components/ControleDeVolume";
-import { styles } from "./styles";
 import { useMyContext } from "../../context/General/MyContext";
+import { Colocacao } from "./../../components/Colocacao";
+import { styles } from "./styles";
 
 export const Placar = () => {
   const {sound, setSound, volume} = useMyContext();

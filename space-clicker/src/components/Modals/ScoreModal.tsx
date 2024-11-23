@@ -50,17 +50,6 @@ export const ModalDetails = () => {
   };
 
   const handlePostPlayer = () => {
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:3000/leaderboard/",
-    //     { id: "okosduih", nome: player, pontuacao: score }
-    //   );
-    //   console.log(response.data);
-    //   //colocar o modal de sucesso aqui
-    // } catch (error) {
-    //   console.error("erro na requisição", error);
-    //   //colocar o modal de erro aqui
-    // }
     registraPontos(player, score);
     setIsModalVisible(false);
     navigation.navigate("HomeTabs", { screen: "Ranking" });

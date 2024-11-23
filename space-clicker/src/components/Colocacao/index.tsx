@@ -1,25 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, Text, View } from "react-native";
 import { styles } from "./styles";
+import { buscaPlacar, buscaPlacarOrdenado, Leaderboard } from "../../api/api";
+import { useMyContext } from "../../context/General/MyContext";
 
-const placarData = [
-  { nick: "ARC", score: "10000\nSpacecoins" },
-  { nick: "WLT", score: "9000\nSpacecoins" },
-  { nick: "XYZ", score: "8000\nSpacecoins" },
-  { nick: "ABC", score: "7500\nSpacecoins" },
-  { nick: "DEF", score: "7000\nSpacecoins" },
-  { nick: "GHI", score: "6500\nSpacecoins" },
-  { nick: "JKL", score: "6000\nSpacecoins" },
-  { nick: "MNO", score: "5500\nSpacecoins" },
-  { nick: "PQR", score: "5000\nSpacecoins" },
-  { nick: "STU", score: "4500\nSpacecoins" },
-];
 
 interface ColocacaoItemProps {
   position: number;
   initials: string;
-  score: string;
+  score: number;
 }
+
 
 const ColocacaoItem: React.FC<ColocacaoItemProps> = ({
   position,
@@ -35,6 +26,16 @@ const ColocacaoItem: React.FC<ColocacaoItemProps> = ({
 );
 
 export const Colocacao: React.FC = () => {
+  const [placar, setPlacar] = useState<Leaderboard[]>([])
+  const { isModalVisible } = useMyContext()
+  useEffect(() => {
+    const handlePlacar = async () => {
+      const rep = await buscaPlacarOrdenado()
+      setPlacar(rep)
+    }
+    handlePlacar()
+  }, [isModalVisible])
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -43,13 +44,13 @@ export const Colocacao: React.FC = () => {
       </View>
 
       <FlatList
-        data={placarData}
-        keyExtractor={(item, index) => `${item.nick}-${index}`}
+        data={placar}
+        keyExtractor={(item, index) => `${item.nome}-${index}`}
         renderItem={({ item, index }) => (
           <ColocacaoItem
             position={index + 1}
-            initials={item.nick}
-            score={item.score}
+            initials={item.nome}
+            score={item.pontuacao}
           />
         )}
       />
