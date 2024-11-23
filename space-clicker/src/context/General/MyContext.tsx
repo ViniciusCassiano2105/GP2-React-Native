@@ -1,5 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Audio } from "expo-av";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface MyContextProps {
     size: number;
@@ -18,6 +19,8 @@ interface MyContextProps {
     setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     volume: number;
     setVolume: React.Dispatch<React.SetStateAction<number>>;
+    dificuldade: string;
+    setDificuldade: React.Dispatch<React.SetStateAction<string>>;
 
 }
 
@@ -58,7 +61,23 @@ const MyContext = createContext<MyContextProps>({
     setVolume: () => {
         throw new Error('setVolume foi chamado fora do MyProvider')
     },
+    dificuldade: '',
+    setDificuldade: () => {
+        throw new Error('setDificuldade foi chamado fora do MyProvider')
+    },
 })
+
+const getData = async (key: string) => {
+    try {
+        const value = await AsyncStorage.getItem(key);
+        if (value !== null) {
+            return value;
+        }
+    } catch (e) {
+        console.log("informações não registradas")
+    }
+};
+
 
 export const MyProvider = ({ children }: MyProviderProps) => {
     const [size, setSize] = React.useState(100)
@@ -69,6 +88,22 @@ export const MyProvider = ({ children }: MyProviderProps) => {
     const [player, setPlayer] = useState('');
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [volume, setVolume] = useState(0.8);
+    const [dificuldade, setDificuldade] = useState("Normal")
+
+    useEffect(() =>{
+        const setDadosIniciais = async () => {
+            const jogador = await getData('nickname')
+            const vol = await getData('volume')
+            const dif = await getData('dificuldade')
+
+            setPlayer(jogador || '')
+            setVolume( vol ? parseFloat(vol) : 0.08)
+            setDificuldade(dif || "Normal")
+        }
+
+        setDadosIniciais();
+    }, [])
+
 
     return (
 
@@ -90,6 +125,8 @@ export const MyProvider = ({ children }: MyProviderProps) => {
                 setIsModalVisible,
                 volume,
                 setVolume,
+                dificuldade,
+                setDificuldade,
             }}
         >
             {children}

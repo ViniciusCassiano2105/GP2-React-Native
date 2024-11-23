@@ -1,6 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Dimensions, Image, TouchableOpacity, View } from "react-native";
 import { useMyContext } from "../../context/General/MyContext";
 import startBtn from './../../assets/botao-start.png';
@@ -9,7 +9,7 @@ import { styles } from "./styles";
 import { ModalDetails } from "../Modals/ScoreModal";
 
 export const Game = () => {
-  const { size, setSize, isPlaying, setIsPlaying } = useMyContext();
+  const { size, setSize, isPlaying, setIsPlaying, dificuldade } = useMyContext();
   const { width, height } = Dimensions.get("window");
 
   const [iPosition] = useState({
@@ -18,7 +18,7 @@ export const Game = () => {
   });
 
   const [position, setPosition] = useState({ x: iPosition.x, y: iPosition.y });
-  const {clickCount, setClickCount, score, setScore} = useMyContext();
+  const { clickCount, setClickCount, score, setScore } = useMyContext();
   const [sound, setSound] = useState<Audio.Sound | null>(null);
 
   const gerarNovaPosicao = () => {
@@ -50,6 +50,17 @@ export const Game = () => {
       return null;
     }
   };
+
+  useEffect(() => {
+    if (dificuldade == "Fácil") {
+      setSize(100)
+    } else if (dificuldade == "Normal") {
+      setSize(75)
+    } else if (dificuldade == "Difícil") {
+      setSize(50)
+    }
+  }, [dificuldade])
+
 
   useFocusEffect(
     useCallback(() => {
@@ -95,15 +106,16 @@ export const Game = () => {
         ]}
         onPress={handleShipPress}
         disabled={!isPlaying}
+        activeOpacity={0.95}
       >
         <Image source={ship} style={[styles.spaceShip, { width: size }]} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.botaoStart, isPlaying ? {display: 'none'} : {display: 'flex'}]} onPress={handleStartTouch}>
+      <TouchableOpacity style={[styles.botaoStart, isPlaying ? { display: 'none' } : { display: 'flex' }]} onPress={handleStartTouch}>
         <Image source={startBtn}
-        style={{height: 180, resizeMode:'contain'}}/>
-        </TouchableOpacity>
-        <ModalDetails/>
+          style={{ height: 180, resizeMode: 'contain' }} />
+      </TouchableOpacity>
+      <ModalDetails />
 
     </View>
   );

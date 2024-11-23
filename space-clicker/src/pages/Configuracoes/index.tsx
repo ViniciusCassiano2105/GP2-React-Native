@@ -7,13 +7,12 @@ import { useMyContext } from "../../context/General/MyContext";
 import { useNavigation } from "@react-navigation/native"; // Importando o hook de navegação
 import { RootStackParamList } from "../../routes/StackNavigator";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Configuracoes = () => {
-  const { player, setPlayer } = useMyContext();
+  const { volume, setVolume, dificuldade, setDificuldade, player, setPlayer } = useMyContext();
   const navigation = useNavigation<ConfigNavigationProp>(); // Criando o objeto de navegação
 
-  const [difficulty, setDifficulty] = useState("normal");
-  const { volume, setVolume } = useMyContext();
   const [score, setScore] = useState(0);
   const [speed, setSpeed] = useState(1000);
   const [nickInput, setNickInput] = useState(player || "");
@@ -24,17 +23,19 @@ export const Configuracoes = () => {
 >;
 
   useEffect(() => {
-    if (difficulty === "Fácil") setSpeed(1500);
-    else if (difficulty === "Difícil") setSpeed(500);
+    if (dificuldade === "Fácil") setSpeed(1500);
+    else if (dificuldade === "Difícil") setSpeed(500);
     else setSpeed(1000);
-  }, [difficulty]);
+  }, [dificuldade]);
 
   const handleClick = () => {
     setScore(score + 1);
   };
 
   const changeVolume = (delta: number) => {
-    setVolume(Math.min(1, Math.max(0, volume + delta)));
+    const newVolume = Math.min(1, Math.max(0, volume + delta))
+    setVolume(newVolume)
+    storeData(newVolume, 'volume')
   };
 
   const playMusic = async () => {
@@ -52,8 +53,17 @@ export const Configuracoes = () => {
     }
   };
 
+  const storeData = async (value: any, key: string) => {
+    try {
+      await AsyncStorage.setItem(key, `${value}`);
+    } catch (e) {
+      console.error("Não foi possível registrar as informações.")
+    }
+  };
+
   const handleSaveNick = () => {
     setPlayer(nickInput); // Atualiza o contexto com o nick digitado
+    storeData(nickInput, 'nickname')
     Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput}`);
   };
 
@@ -95,19 +105,25 @@ export const Configuracoes = () => {
 
         {/* Alterar dificuldade */}
         <TouchableOpacity
-          onPress={() => setDifficulty("Fácil")}
+          onPress={() => {
+            setDificuldade("Fácil")
+          storeData("Fácil", "dificuldade")}}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Fácil</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setDifficulty("Normal")}
+          onPress={() => {
+            setDificuldade("Normal")
+            storeData("Normal", "dificuldade")}}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Normal</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setDifficulty("Difícil")}
+          onPress={() => {
+            setDificuldade("Difícil")
+            storeData("Difícil", "dificuldade")}}
           style={styles.settingButton}
         >
           <Text style={styles.settingText}>Difícil</Text>
@@ -133,10 +149,10 @@ export const Configuracoes = () => {
         <TextInput
           style={styles.input}
           placeholder="Digite seu nick"
+          autoCapitalize="characters"
           value={nickInput}
           onChangeText={setNickInput}
           maxLength={3}
-          autoCapitalize="characters"
         />
         <TouchableOpacity onPress={handleSaveNick} style={styles.saveButton}>
           <Text style={styles.saveButtonText}>Salvar Nick</Text>
