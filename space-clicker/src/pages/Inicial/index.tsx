@@ -3,7 +3,6 @@ import React, { useCallback, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { styles } from "./styles";
 import { useMyContext } from "../../context/General/MyContext";
 
