@@ -77,7 +77,7 @@ export const Inicial = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("./../../assets/backgroundincial.png")} 
+        source={require("./../../assets/backgroundinicial.png")} 
         style={styles.backgroundImage}
       />
       
