@@ -53,6 +53,7 @@ O **Space Clicker** utiliza a **MockAPI** como back-end para armazenar e consult
 
 - **Mock API**: A API apresenta endpoints simulados para objetos do tipo `leaderboard`.
 - **Endpoint único**: `/leaderboard` para manipulação dos registros dos jogadores.
+- **URL da API**: [https://mockapi.io](https://mockapi.io)
 
 A utilização dessa API permite rápida configuração e integração sem a necessidade de um back-end complexo durante o desenvolvimento.
 
