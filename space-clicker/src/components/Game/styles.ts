@@ -31,8 +31,9 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
   timer:{
-    color:"white",
+    color:"red",
     fontWeight:"bold",
-    fontSize:30
+    fontSize:150,
+    
   }
 });
