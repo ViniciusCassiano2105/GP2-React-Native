@@ -47,14 +47,14 @@ Space Clicker é um jogo de cliques dinâmico, onde o jogador controla uma espa�
 
 ## 🌐 Integração com API
 
-O **Space Clicker** utiliza uma API RESTful para armazenar e consultar os dados de pontuação e nick dos jogadores. Com isso, garantimos que:
+O **Space Clicker** utiliza a **MockAPI** como back-end para armazenar e consultar os dados dos jogadores. Essa API é uma solução de mock para desenvolvimento, simulando uma base de dados real.
 
-- As pontuações sejam persistidas mesmo após fechar o aplicativo.
-- O ranking seja atualizado em tempo real para todos os jogadores.
+**Características da API:**
 
-**Endpoints utilizados:**
-- **`POST /score`**: Para salvar a pontuação e o nick do jogador.
-- **`GET /leaderboard`**: Para buscar as pontuações ordenadas e exibi-las no ranking.
+- **Mock API**: A API apresenta endpoints simulados para objetos do tipo `leaderboard`.
+- **Endpoint único**: `/leaderboard` para manipulação dos registros dos jogadores.
+
+A utilização dessa API permite rápida configuração e integração sem a necessidade de um back-end complexo durante o desenvolvimento.
 
 ---
 
