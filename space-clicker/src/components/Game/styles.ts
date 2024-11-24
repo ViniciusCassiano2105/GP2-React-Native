@@ -30,4 +30,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     zIndex: 1,
   },
+  timer:{
+    color:"white",
+    fontWeight:"bold",
+    fontSize:30
+  }
 });
