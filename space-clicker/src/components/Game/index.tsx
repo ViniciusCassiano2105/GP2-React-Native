@@ -1,7 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
 import React, { useCallback, useEffect, useState } from "react";
-import { Dimensions, Image, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, TouchableOpacity, View, ImageBackground } from "react-native";
 import { useMyContext } from "../../context/General/MyContext";
 import startBtn from './../../assets/botao-start.png';
 import ship from "./../../assets/spaceship.png";
@@ -53,14 +53,13 @@ export const Game = () => {
 
   useEffect(() => {
     if (dificuldade == "Fácil") {
-      setSize(100)
+      setSize(100);
     } else if (dificuldade == "Normal") {
-      setSize(75)
+      setSize(75);
     } else if (dificuldade == "Difícil") {
-      setSize(38)
+      setSize(38);
     }
-  }, [dificuldade])
-
+  }, [dificuldade]);
 
   useFocusEffect(
     useCallback(() => {
@@ -84,13 +83,18 @@ export const Game = () => {
   );
 
   const handleStartTouch = () => {
-    setClickCount(0)
-    setScore(0)
+    setClickCount(0);
+    setScore(0);
     setIsPlaying(true);
-  }
+  };
 
   return (
     <View style={styles.container}>
+      <ImageBackground
+        source={require("./../../assets/backgroundigameplay.png")}
+        style={styles.backgroundImage}
+      />
+
       <Video
         style={styles.video}
         source={require("./../../assets/backgroundplay2.mp4")}
@@ -111,12 +115,20 @@ export const Game = () => {
         <Image source={ship} style={[styles.spaceShip, { width: size }]} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.botaoStart, isPlaying ? { display: 'none' } : { display: 'flex' }]} onPress={handleStartTouch}>
-        <Image source={startBtn}
-          style={{ height: 180, resizeMode: 'contain' }} />
+      <TouchableOpacity
+        style={[
+          styles.botaoStart,
+          isPlaying ? { display: "none" } : { display: "flex" },
+        ]}
+        onPress={handleStartTouch}
+      >
+        <Image
+          source={startBtn}
+          style={{ height: 180, resizeMode: "contain" }}
+        />
       </TouchableOpacity>
+      
       <ModalDetails />
-
     </View>
   );
 };
