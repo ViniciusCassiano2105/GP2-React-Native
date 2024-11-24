@@ -4,7 +4,6 @@ import { styles } from "./styles";
 import logo from "./../../assets/logo.png";
 import { useFocusEffect } from "@react-navigation/native";
 import { Audio, ResizeMode, Video } from "expo-av";
-import { ControleDeVolume } from "./../../components/ControleDeVolume";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/StackNavigator";
