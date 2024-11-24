@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ImageBackground,
 } from "react-native";
 import { useMyContext } from "../../context/General/MyContext";
 import { RootStackParamList } from "../../routes/StackNavigator";
@@ -95,7 +96,11 @@ export const Configuracoes = () => {
 
   return (
     <View style={styles.container}>
-      {/* Fundo com Vídeo */}
+      <ImageBackground
+        source={require("./../../assets/backgroundconf.png")}
+        style={styles.backgroundImage}
+      />
+
       <Video
         style={styles.video}
         source={require("./../../assets/conf.mp4")}
@@ -105,10 +110,8 @@ export const Configuracoes = () => {
       />
 
       <View style={styles.settings}>
-        {/* Título Principal */}
         <Text style={styles.settingsTitle}>Configurações</Text>
 
-        {/* Seção de Dificuldade */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Dificuldade</Text>
           <View style={styles.settingOption}>
@@ -149,7 +152,6 @@ export const Configuracoes = () => {
           </View>
         </View>
 
-        {/* Seção de Novo Apelido */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Novo Apelido</Text>
           <TextInput
@@ -165,7 +167,6 @@ export const Configuracoes = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Seção de Créditos */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Sobre o Jogo</Text>
           <TouchableOpacity

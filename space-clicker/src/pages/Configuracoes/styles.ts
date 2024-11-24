@@ -6,6 +6,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: -2,
+  },
   video: {
     ...StyleSheet.absoluteFillObject,
     zIndex: -1,
@@ -22,7 +26,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 8,
     elevation: 10,
-    top: 8, // Ajusta posição vertical
+    top: 8,
   },
   settingsTitle: {
     color: "#fff",
@@ -37,9 +41,9 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     width: 350,
     alignItems: "center",
-    paddingTop: 10, // Espaçamento acima do conteúdo
-    borderTopWidth: 1, // Borda na parte superior
-    borderTopColor: "rgba(255, 255, 255, 0.4)", // Cor da borda superior
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(255, 255, 255, 0.4)",
     paddingBottom: 10,
   },
   sectionTitle: {
@@ -93,16 +97,6 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.2)",
   },
-  creditosTitle: {
-    color: "aqua",
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textShadowColor: "rgba(0, 0, 0, 0.6)",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 4,
-    textTransform: "uppercase",
-  },
   largeIcon: {
     position: "relative",
     left: 15,
@@ -117,7 +111,6 @@ export const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 4,
   },
-  
   input: {
     color: "#000000",
     textAlign: "center",
@@ -125,7 +118,7 @@ export const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     marginTop: 12,
-    width:150,
+    width: 150,
     fontSize: 16,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.2)",
