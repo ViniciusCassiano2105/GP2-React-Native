@@ -1,6 +1,6 @@
 import { Audio, ResizeMode, Video } from "expo-av";
-import React, { useCallback, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import React, { useCallback } from "react";
+import { Text, TouchableOpacity, View, ImageBackground } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { styles } from "./styles";
@@ -76,6 +76,11 @@ export const Inicial = () => {
 
   return (
     <View style={styles.container}>
+      <ImageBackground
+        source={require("./../../assets/backgroundincial.png")} 
+        style={styles.backgroundImage}
+      />
+      
       <Video
         style={styles.video}
         source={require("./../../assets/backgroundinicial2.mp4")}
@@ -87,7 +92,6 @@ export const Inicial = () => {
         <TouchableOpacity style={styles.buttonStart} onPress={handleNavigateToHome}>
           <Text style={styles.textButton}>INICIAR</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.buttonConfiguracao} onPress={handleNavigateToConfig}>
           <Text style={styles.textButton}>CONFIGURAÇÕES</Text>
         </TouchableOpacity>
