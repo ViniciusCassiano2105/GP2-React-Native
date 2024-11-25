@@ -47,9 +47,8 @@ export const registraPontos = async (nome: string, pontuacao: number) => {
     };
     try {
         await apiScoreboard.post(url, leaderboard)
-        console.log("postei isso na api heim")
     } catch (error) {
-        console.error("deu ruim na api", error)
+        console.error("Falha ao acessar a API.", error)
     }
 
 

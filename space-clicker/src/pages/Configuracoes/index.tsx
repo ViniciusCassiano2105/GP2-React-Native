@@ -67,11 +67,20 @@ export const Configuracoes = () => {
     }, [])
   );
 
+  const storeData = async (value: any, key: string) => {
+    try {
+      await AsyncStorage.setItem(key, `${value}`);
+    } catch (e) {
+      console.error("Não foi possível registrar as informações.")
+    }
+  };
+
   const handleSaveNick = () => {
     if (nickInput.trim() === "") {
       Alert.alert("Nick inválido!", "Por favor, insira um nick válido. 😅");
     } else {
       setPlayer(nickInput);
+      storeData(nickInput, 'nickname')
       Alert.alert("Nick atualizado!", `Seu nick agora é: ${nickInput} 🏆`);
     }
   };
@@ -88,6 +97,7 @@ export const Configuracoes = () => {
     }
 
     setDificuldade(dificuldade);
+    storeData(dificuldade, "dificuldade")
     Alert.alert("Dificuldade selecionada!", mensagem);
   };
 
