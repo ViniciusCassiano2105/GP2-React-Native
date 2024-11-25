@@ -43,7 +43,7 @@ export const Colocacao: React.FC = () => {
         source={require("./../../assets/backgroundscore.png")}
         style={styles.backgroundImage}
       />
-      
+
       {/* Vídeo sobre a imagem de fundo */}
       <Video
         source={require("./../../assets/backgroundscore1.mp4")}
@@ -52,7 +52,7 @@ export const Colocacao: React.FC = () => {
         isLooping
         shouldPlay
       />
-      
+
       {/* Componentes de interface */}
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>

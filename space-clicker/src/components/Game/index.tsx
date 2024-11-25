@@ -23,7 +23,7 @@ export const Game = () => {
 
   const gerarNovaPosicao = () => {
     const x = Math.random() * (width - size);
-    const y = Math.random() * (height - 100 - size);
+    const y = Math.random() * (height - 120 - size);
     setPosition({ x, y });
   };
 
@@ -127,7 +127,7 @@ export const Game = () => {
           style={{ height: 180, resizeMode: "contain" }}
         />
       </TouchableOpacity>
-      
+
       <ModalDetails />
     </View>
   );

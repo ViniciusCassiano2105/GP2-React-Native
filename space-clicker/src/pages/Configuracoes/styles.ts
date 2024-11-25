@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     zIndex: -1,
   },
   settings: {
-    height: 700,
+    height: 120,
     width: 320,
     position: "absolute",
     alignItems: "center",
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     textShadowRadius: 6,
   },
   section: {
-    marginBottom: 20,
+    marginBottom: 10,
     width: 350,
     alignItems: "center",
     paddingTop: 10,
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: 300,
-    marginVertical: 12,
+    marginVertical: 8,
     paddingHorizontal: 10,
   },
   settingButton: {

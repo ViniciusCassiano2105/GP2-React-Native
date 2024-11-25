@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Audio, ResizeMode, Video } from "expo-av";
@@ -115,36 +116,36 @@ export const Configuracoes = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Dificuldade</Text>
           <View style={styles.settingOption}>
-            <TouchableOpacity
+        <TouchableOpacity
               onPress={() => handleSelectDificuldade("Fácil")}
-              style={styles.settingButton}
-            >
-              <Text style={styles.settingText}>Fácil</Text>
-            </TouchableOpacity>
+          style={styles.settingButton}
+        >
+          <Text style={styles.settingText}>Fácil</Text>
+        </TouchableOpacity>
             <Image
               source={require("./../../assets/easy.png")}
               style={styles.largeIcon}
             />
           </View>
           <View style={styles.settingOption}>
-            <TouchableOpacity
+        <TouchableOpacity
               onPress={() => handleSelectDificuldade("Normal")}
-              style={styles.settingButton}
-            >
-              <Text style={styles.settingText}>Normal</Text>
-            </TouchableOpacity>
+          style={styles.settingButton}
+        >
+          <Text style={styles.settingText}>Normal</Text>
+        </TouchableOpacity>
             <Image
               source={require("./../../assets/medio.png")}
               style={styles.largeIcon}
             />
           </View>
           <View style={styles.settingOption}>
-            <TouchableOpacity
+        <TouchableOpacity
               onPress={() => handleSelectDificuldade("Difícil")}
-              style={styles.settingButton}
-            >
-              <Text style={styles.settingText}>Difícil</Text>
-            </TouchableOpacity>
+          style={styles.settingButton}
+        >
+          <Text style={styles.settingText}>Difícil</Text>
+        </TouchableOpacity>
             <Image
               source={require("./../../assets/hard.png")}
               style={styles.largeIcon}
@@ -154,17 +155,17 @@ export const Configuracoes = () => {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Novo Apelido</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite seu nick"
-            autoCapitalize="characters"
-            value={nickInput}
-            onChangeText={setNickInput}
-            maxLength={3}
-          />
-          <TouchableOpacity onPress={handleSaveNick} style={styles.saveButton}>
-            <Text style={styles.saveButtonText}>Salvar Nick</Text>
-          </TouchableOpacity>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu nick"
+          autoCapitalize="characters"
+          value={nickInput}
+          onChangeText={setNickInput}
+          maxLength={3}
+        />
+        <TouchableOpacity onPress={handleSaveNick} style={styles.saveButton}>
+          <Text style={styles.saveButtonText}>Salvar Nick</Text>
+        </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
@@ -173,8 +174,8 @@ export const Configuracoes = () => {
             onPress={handleCredits}
             style={styles.creditosButton}
           >
-            <Text style={styles.settingText}>Créditos</Text>
-          </TouchableOpacity>
+          <Text style={styles.settingText}>Créditos</Text>
+        </TouchableOpacity>
         </View>
       </View>
     </View>
