@@ -94,7 +94,7 @@ export const ModalDetails = () => {
             <Text style={styles.spacecoins}>SpaceCoins</Text>
             <TouchableOpacity
               style={styles.button}
-              disabled={false}
+              disabled={player ? false : true}
               onPress={handlePostPlayer}
             >
               <Text style={styles.buttonText}>
@@ -112,7 +112,7 @@ export const ModalDetails = () => {
             <TouchableOpacity
               style={styles.button}
               onPress={handlePostNewPlayer}
-              disabled={newPlayer.length !== 3}
+              disabled={newPlayer.length < 3}
             >
               <Text style={styles.buttonText}>Registrar com novo nick</Text>
             </TouchableOpacity>
